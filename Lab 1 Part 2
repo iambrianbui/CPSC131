@@ -1,6 +1,7 @@
 #include <iostream>  // cout
 #include <string>  //  strings
 #include <algorithm>  //  sort
+#include <ctime>  //  time LOL
 using namespace std;
 
 template <class DFIRST, class DSECOND>  // Display First and Display Second respectively
@@ -19,6 +20,7 @@ void sortArray(SFIRST a, SSECOND b){
 
 int main(){
 
+	time_t p;
 	int a[6] = { 44, 55, 22, 88, 33, 11 };  //  initialize ints
 	string month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };  //  initialize months
 	char vowels[5] = { 'E', 'U', 'A', 'I', 'O' };  //  initialize vowels
@@ -45,7 +47,10 @@ int main(){
 	displayArray(a, 6);
 	displayArray(month, 12);
 	displayArray(vowels, 5);
+	cout << endl;
 
+	time(&p);
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);
 	system("pause");
 	return 0;
 }
