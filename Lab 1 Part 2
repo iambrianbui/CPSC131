@@ -1,0 +1,51 @@
+#include <iostream>  // cout
+#include <string>  //  strings
+#include <algorithm>  //  sort
+using namespace std;
+
+template <class DFIRST, class DSECOND>  // Display First and Display Second respectively
+void displayArray(DFIRST a, DSECOND b){
+	for (int i = 0; i < b; i++)  //  basic for loop
+	{
+		cout << a[i] << "\t";  //  display the value and a tab for each interation
+	}
+	cout << endl;
+}
+
+template<class SFIRST, class SSECOND>  //  Sort First and Sort Second respectively
+void sortArray(SFIRST a, SSECOND b){
+	sort(a, a+b);  //  handy new sort function :D
+}
+
+int main(){
+
+	int a[6] = { 44, 55, 22, 88, 33, 11 };  //  initialize ints
+	string month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };  //  initialize months
+	char vowels[5] = { 'E', 'U', 'A', 'I', 'O' };  //  initialize vowels
+
+
+	// ===============================================================step 1===============================================================
+	cout << "Original arrays:  " << endl;
+	//  calling functions
+	displayArray(a, 6);
+	displayArray(month, 12);
+	displayArray(vowels, 5);
+	cout << endl;
+	
+
+	//  ===============================================================step 2===============================================================
+	//  calling functions
+	sortArray(a, 6);
+	sortArray(month, 12);
+	sortArray(vowels, 5);
+
+	//  ===============================================================step 3===============================================================
+	cout << "Sorted arrays:  " << endl;
+	// calling functions
+	displayArray(a, 6);
+	displayArray(month, 12);
+	displayArray(vowels, 5);
+
+	system("pause");
+	return 0;
+}
