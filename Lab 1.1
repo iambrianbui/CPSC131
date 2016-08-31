@@ -1,0 +1,96 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  29 August 2016
+Last Edited:  29 August 2016
+
+This program will utilize "data.txt", copying it into the array, dplaying it, computing the average of GPA, and displaying those with above average GPA.
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct PERSON{
+	string name;
+	int age;
+	float gpa;
+};
+PERSON a[6];
+
+void copyData(string, PERSON[]);  //  copys the text file to the array
+void display(PERSON[]);  //  displays the names of all teenagers from [13,19]
+float computeAverage(PERSON[], float&, float&);  //  computes the age and gpa average
+void display(float, float);  //  displays the age and gpa average
+void display(PERSON[], float);  //  display anyone over the gpa average
+
+int main()
+{
+	float ageAve = 0; 
+	float gpaAve = 0;
+
+	copyData("data.txt", a);
+	display(a);
+	computeAverage(a, ageAve, gpaAve);
+	display(ageAve, gpaAve);
+	display(a, gpaAve);
+
+	system("pause");
+
+	return 0;
+}
+
+void copyData(string fname, PERSON x[])
+{
+	fstream f;
+	f.open(fname, ios::in);
+	for (int i = 0; i < 6; i++)
+	{
+		f >> x[i].name >> x[i].age >> x[i].gpa;
+	};
+	f.close();
+
+};
+
+void display(PERSON x[]){
+	for (int i = 0; i < 6; i++)
+	{
+		if (x[i].age >= 13 && x[i].age <= 19)
+		{
+			cout << x[i].name << endl;
+		}
+	}
+};
+
+float computeAverage(PERSON x[], float& ageAverage, float& gpaAverage){
+	for (int i = 0; i < 6; i++)
+	{
+		ageAverage += x[i].age;
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		gpaAverage += x[i].gpa;
+	}
+	ageAverage /= 6;
+	gpaAverage /= 6;
+	return ageAverage, gpaAverage;
+}
+
+void display(float ageAverage, float gpaAverage){
+	cout << "Age average:  " << ageAverage << endl
+		<< "GPA average:  " << gpaAverage << endl;
+}
+
+void display(PERSON x[], float gpaAverage){
+	for (int i = 0; i < 6; i++)
+	{
+		if (x[i].gpa > gpaAverage)
+		{
+			cout << x[i].name << "\t" << x[i].age << "\t" << x[i].gpa << endl;
+		}
+	}
+
+
+}
