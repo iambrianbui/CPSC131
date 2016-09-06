@@ -1,0 +1,76 @@
+/*
+Created by:  Brian Bui
+Created on:  3 September 2016
+Last edited:  5 September 2016
+
+"Create a library to include a template class for stacks.  Run the program to push the elements of the
+following arrays into the stack.  Display elements in reverse orders.
+*/
+
+#include <iostream>
+#include "stack.h"
+#include <string>
+
+using namespace std;
+
+void numArraytoStack(int[], int x);
+void stringArraytoStack(string[], int x);
+void charArraytoStack(char[], int x);
+
+STACK<int, 5> numSt;
+STACK<string, 3> strSt;
+STACK<char, 5> chaSt;
+
+int main(){
+
+	int a[5] = { 3, 2, 9, 1, 8 };
+	string names[3] = { "Tom", "Jerry", "Trump" };
+	char c[5] = { 'o', 'i', 'e', 'a', 'u' };
+
+	numArraytoStack(a, 5);
+	stringArraytoStack(names, 3);
+	charArraytoStack(c, 5);
+}
+
+
+void numArraytoStack(int a[], int b){
+
+	numSt.clearStack();
+	for (int i = 0; i < b; i++){
+		numSt.pushStack(a[i]);
+	}
+
+	int x;
+	while (!numSt.emptyStack()){
+		x = numSt.popStack();
+		cout << x << endl;
+	}
+}
+
+void stringArraytoStack(string a[], int b){
+
+	strSt.clearStack();
+	for (int i = 0; i < b; i++){
+		strSt.pushStack(a[i]);
+	}
+
+	string x;
+	while (!strSt.emptyStack()){
+		x = strSt.popStack();
+		cout << x << endl;
+	}
+}
+
+void charArraytoStack(char a[], int b){
+
+	chaSt.clearStack();
+	for (int i = 0; i < b; i++){
+		chaSt.pushStack(a[i]);
+	}
+
+	char x;
+	while (!chaSt.emptyStack()){
+		x = chaSt.popStack();
+		cout << x << endl;
+	}
+}
