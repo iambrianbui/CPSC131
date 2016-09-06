@@ -5,63 +5,69 @@ Last edited:  5 September 2016
 
 "Create a library to include a template class for stacks.  Run the program to push the elements of the
 following arrays into the stack.  Display elements in reverse orders.
+
+I attempted to make the whole thing a template and have a 8 line main, but I found myself going into unknown boundaries.
+
+I hope i'll learn about it later, if it is possible or not.
 */
 
-#include <iostream>
-#include "stack.h"
-#include <string>
+#include <iostream>  //  io stream
+#include "stack.h"  //  I MADE THIS
+#include <string>  //  string
 
-using namespace std;
+using namespace std;  
 
-void numArraytoStack(int[], int x);
-void stringArraytoStack(string[], int x);
-void charArraytoStack(char[], int x);
+void numArraytoStack(int[], int x);  //  for the first function, converts the array of numbers into a stack
+void stringArraytoStack(string[], int x);  //  second function, coverts the array of strings into a stack
+void charArraytoStack(char[], int x);  //  third function, converts the array of characters (which is technically a string..?) into a stack
 
-STACK<int, 5> numSt;
-STACK<string, 3> strSt;
-STACK<char, 5> chaSt;
+STACK<int, 5> numSt;  //  class for numbers, <> is the initilization of data types for the template
+STACK<string, 3> strSt;  //  class for strings ""
+STACK<char, 5> chaSt;  //  class for char "" 
 
 int main(){
 
-	int a[5] = { 3, 2, 9, 1, 8 };
-	string names[3] = { "Tom", "Jerry", "Trump" };
-	char c[5] = { 'o', 'i', 'e', 'a', 'u' };
+	int a[5] = { 3, 2, 9, 1, 8 }; //  initialize array for num
+	string names[3] = { "Tom", "Jerry", "Trump" };  //  " " for names
+	char c[5] = { 'o', 'i', 'e', 'a', 'u' };  //  " " for chars
 
-	numArraytoStack(a, 5);
-	stringArraytoStack(names, 3);
-	charArraytoStack(c, 5);
+	numArraytoStack(a, 5);  //  call on numArray function
+	stringArraytoStack(names, 3);  //  call on stringArray function
+	charArraytoStack(c, 5);  //  call on charArray function
 }
 
 
-void numArraytoStack(int a[], int b){
+void numArraytoStack(int a[], int b){  //  HERE WE GO
 
-	numSt.clearStack();
-	for (int i = 0; i < b; i++){
+	numSt.clearStack();  //  call on the clearStack function, which sets the stack counter to 0
+	for (int i = 0; i < b; i++){  //  for loop to dump the array values into the stack
 		numSt.pushStack(a[i]);
 	}
 
-	int x;
-	while (!numSt.emptyStack()){
-		x = numSt.popStack();
-		cout << x << endl;
+	int x;  //  variable placeholder to display
+	while (!numSt.emptyStack()){  //  while there isn't an empty stack
+		x = numSt.popStack();  //  put the stack value into x
+		cout << x << endl;  //  display x
 	}
+	cout << endl;
 }
 
-void stringArraytoStack(string a[], int b){
+void stringArraytoStack(string a[], int b){  
 
-	strSt.clearStack();
-	for (int i = 0; i < b; i++){
+	strSt.clearStack();  //  call on the clearStack function, which sets the stack counter to 0
+	for (int i = 0; i < b; i++){  //  for loop to dump the array values into the stack
 		strSt.pushStack(a[i]);
 	}
 
-	string x;
-	while (!strSt.emptyStack()){
-		x = strSt.popStack();
-		cout << x << endl;
+	string x;  //  variable placeholder to display
+	while (!strSt.emptyStack()){  //  while there isn't an empty stack
+		x = strSt.popStack();  //  put the stack value into x
+		cout << x << endl;  //  display x
 	}
+	cout << endl;
 }
 
-void charArraytoStack(char a[], int b){
+void charArraytoStack(char a[], int b){  //  it's the same as the other two
 
 	chaSt.clearStack();
 	for (int i = 0; i < b; i++){
@@ -73,4 +79,5 @@ void charArraytoStack(char a[], int b){
 		x = chaSt.popStack();
 		cout << x << endl;
 	}
+	cout << endl;
 }
