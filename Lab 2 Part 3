@@ -1,0 +1,30 @@
+/*
+CPSC 131
+Created by:  Brian Bui
+Created on:  7 September 2016, 11:48 pm
+Last edited on:  7 September 2016
+
+This program will modify arrays.
+*/
+
+#include<iostream>
+#include<cstring>
+#include<cctype>
+
+using namespace std;
+
+int main(){
+	
+	char days[5] = { "Mon", "tue", "Wed", "Thr", "Friday" };
+	string seasons[4][10] = { "Spring", "fall", "Summer", "Winter" };
+
+	//  display both arrays
+	for (int i = 0; i < 5; i++)
+		cout << days[i] << "\t";
+
+	for (int i = 0; i < 4; i++)
+		cout << seasons[i] << "\t";
+
+
+	return 0;
+}
