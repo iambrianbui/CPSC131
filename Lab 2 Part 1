@@ -1,0 +1,120 @@
+/*
+CPSC 131
+Created by:  Brian Bui
+Created on:  7 September 2016
+Last edited:  7 September 2016
+This program will:
+1.  Copy records from a text file to an array.
+2.  Display all records
+3.  Find the maximum balance
+4.  Deposit money and
+5.  Copy the new balance to the text file.
+*/
+
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<cstring>
+#include<algorithm>
+
+using namespace std;
+
+struct PERSON{
+	char name[20];
+	float balance;
+};
+
+PERSON p[10];
+
+int copyData(string, PERSON[], int&);  //  copys the text file to the array
+void display(PERSON[], int);    //  displays the array
+void findRichest(PERSON[], int);  //  finds the richest person in the array
+void deposit(char[], PERSON[], int);  //  allows the user to deposit money into the array
+void newCopy(string, PERSON [], int );  //  creates a new copy to overwrite the text file
+
+
+int main(){
+
+	int index = 0;  //  initialize the index
+	char custName[20];  //  array of strings
+
+	copyData("data.txt", p, index);  // call 1
+	display(p, index);  //  2
+	cout << endl; 
+	findRichest(p, index);  // 3
+	cout << endl;
+	cout << "Enter your full name to deposit money:  ";
+	cin.getline(custName, 20);  //  import into array of chars
+	deposit(custName, p, index);   // 4
+	newCopy("data.txt", p, index);  //  5
+
+}
+
+int copyData(string fname, PERSON x[], int& n)  //  get the name of the file and the array in question
+{
+	fstream f;  //  intialize fstream
+	f.open(fname, ios::in);  //  open the file, we are writing into the console
+	while (true){  //  while true
+		f.getline(x[n].name, 20, '/');  //  get the array of char
+		f >> x[n].balance;   //  and the balance
+		if (f.fail()) break;  //  break the loop when fails
+		else n++;  //  increase the index
+	}
+	f.close();  //  close the file
+	return n;  //  return the index
+};
+
+
+void display(PERSON x[], int n){   //  display the array
+	cout << "Name \t \t Balance  " << endl;
+	cout << "-----------------------------" << endl;
+	for (int i = 0; i < n; i++)  //  simple for loop
+	{
+		cout << x[i].name << '\t'<< '\t' << x[i].balance;  //  display
+	}
+};
+
+void findRichest(PERSON x[], int n){  //  find the richest
+	float temp = 0;  //  temporary variable for the richest person
+	int richest;  //  index of the richest person
+
+	for (int i = 0; i < n; i++){  //  start for loop
+		if (x[i].balance > temp){  //  if the current balance is bigger than the temp
+			temp = x[i].balance;  //  update the biggest number
+			richest = i;  //  update the index
+		}
+	}
+	cout << "The customer with the maximum balance is " << x[richest].name;
+
+};
+
+void deposit(char* name, PERSON x[], int n){  //  deposit money function
+	float money;  
+	int index;
+	string fullname = name;  //  need this for the finder
+	fullname.insert(0, "\n");  //  insert \n to the beginning of the array of characters
+
+	for (int i = 0; i < n; i++){  //  for loop
+		
+		if (fullname == x[i].name){  //  if the names are the same
+			index = i;  //  save the index
+		}
+	}
+
+	_strupr(name);  //  make everything uppercase
+	cout << name << ", how much would you like to deposit?";
+	cin >> money;
+	x[index].balance += money;  //  change balance
+	cout << "Now your new balance is " << x[index].balance << endl;
+}
+
+void newCopy(string fname, PERSON x[], int n)
+{
+	fstream f;  //  initialize fstream
+	f.open(fname, ios::out);  //  open the file, we are writing out of the console
+	for (int i = 0; i < n; i++){  //  for loop
+		f << x[i].name << x[i].balance;  //  put in stuffs
+	}
+
+	f.close();  //  close the file
+}
