@@ -10,21 +10,76 @@ This program will modify arrays.
 #include<iostream>
 #include<cstring>
 #include<cctype>
+#include<string>
 
 using namespace std;
 
 int main(){
-	
-	char days[5] = { "Mon", "tue", "Wed", "Thr", "Friday" };
+
+	char days[5][7] = { "Mon", "tue", "Wed", "Thr", "Friday" };
 	string seasons[4][10] = { "Spring", "fall", "Summer", "Winter" };
 
 	//  display both arrays
-	for (int i = 0; i < 5; i++)
-		cout << days[i] << "\t";
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 7; j++){
+			cout << days[i][j];
+		}
+		cout << "\t";
+	}
+	cout << endl;
 
-	for (int i = 0; i < 4; i++)
-		cout << seasons[i] << "\t";
+	for (int i = 0; i < 4; i++){
+		for (int j = 0; j < 10; j++){
+			cout << seasons[i][j] << "\t";
+		}
+	}
+
+	//  change the 't' in "tue" and f in "fall" to upper
+	days[1][0] = toupper(days[1][0]);
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 7; j++){
+			cout << days[i][j];
+		}
+		cout << "\t";
+	}
+	cout << endl;
+
+	seasons[0][1][0] = toupper(seasons[0][1][0]);
+	for (int i = 0; i < 4; i++){
+		for (int j = 0; j < 10; j++){
+			cout << seasons[i][j] << "\t";
+		}
+	}
+
+	//  change array Days to uppercase and show length
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 7; j++){
+			days[i][j] = toupper(days[i][j]);
+		}
+	}
+
+	//  display array
+	for (int i = 0; i < 5; i++){
+		int length = 0;
+
+		for (int j = 0; j < 7; j++){
+			cout << days[i][j];
+			if (isalpha(days[i][j]))
+				length++;
+		}
+		cout << length;
+		cout << "\t";
+		length = 0;
+	}
+	cout << endl;
+
+	cout << "Season" << "\t" << "No. days" << endl << "-----------------------" << endl;
+	//  display array seasons and their length
+	for (int i = 0; i < 4; i++){
+		cout << seasons[0][i] << "\t" << seasons[0][i].length() << endl;
+	}
 
 
+	cin.get();
 	return 0;
 }
