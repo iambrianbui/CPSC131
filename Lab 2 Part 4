@@ -7,56 +7,61 @@ Last edited on:  8 September 2016
 This program will give data about sentences
 */
 
-#include<iostream>
-#include<cctype>
+#include<iostream>  // standard
+#include<string>  //  strings
+//  cctype is now apart of iostream
 
 using namespace std;
 
-int countUpper(char[], int);
-int countDigit(char[], int);
-int countWords(char[], int);
+int countUpper(string, int&);  //  count the upper case characters in a sentence
+int countDigit(string, int&);  //  count the digits in a sentence
+int countWords(string, int&);  //  count the spaces + 1 in  a sentence
 
 
 int main(){
-	int upper = 0, digit = 0, word = 0;
-	char sentence[100];
+	int upper = 0, digit = 0, word = 0;  //  initialization
+	string sentence;
 
 	cout << "Enter a sentence:  " << endl;
-	cin.getline(sentence, 100);
+	getline(cin, sentence);  //  get the sentence
 
-	countUpper(sentence, upper);
-	countDigit(sentence, digit);
-	countWords(sentence, word);
-	cout << "Number of uppercase letters:  " << upper << endl;
-	cout << "Number of digits:  " << digit << endl;
-	cout << "Number of words:  " << word << endl;
+	countUpper(sentence, upper);  //  call function
+	countDigit(sentence, digit);  //  call function
+	countWords(sentence, word);  // call function
+	cout << "Number of uppercase letters:  " << upper << endl;  // display upper
+	cout << "Number of digits:  " << digit << endl;  //  display digit
+	cout << "Number of words:  " << word << endl;  //  display words
+
+	cin.get();  // system pause
+	return 0;
 
 }
 
-int countUpper(char* sentence, int counter){
-	for (int i = 0; i < 100; i++)
+int countUpper(string sentence, int& counter){  //  count the upper characters
+	for (int i = 0; i < int(sentence.length()); i++)  //  for loop for each char in a string
 	{
-		if (isupper(sentence[i]))
-			counter++;
+		if (isupper(sentence[i]))  //  check if upper
+			counter++;  // if yes, increase counter
 	}
-	return counter;
+	return counter;  //  return upper number
 }
 
-int countDigit(char* sentence, int counter){
-	for (int i = 0; i < 100; i++)
-	{
-		if (isdigit(sentence[i]))
-			counter++;
+int countDigit(string sentence, int& counter){  //  count the digits
+	for (int i = 0; i < int(sentence.length()); i++)  //  for loop for each digit in a string
+	{ 
+		if (isdigit(sentence[i]))  //  check if upper
+			counter++;  //  if yes, increase counter
 	}
-	return counter;
+	return counter;  //  return digit number
 }
 
-int countWords(char* sentence, int counter){
-	for (int i = 0; i < 100; i++)
+int countWords(string sentence, int& counter){  //  count the spaces +1
+
+	for (int i = 0; i < int(sentence.length()); i++)  //  for loop for each space in a string
 	{
-		if (isspace(sentence[i]))
-			counter++;
+		if (isspace(sentence[i]))  //  check if space
+			counter++;  //  if yes, increase counter
 	}
-	counter++;
-	return counter;
+	counter++;  // +1
+	return counter; //  return words
 }
