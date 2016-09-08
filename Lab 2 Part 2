@@ -1,0 +1,43 @@
+/*
+CPSC131
+Created by:  Brian Bui
+Created on:  8 September 2016
+Last edited:  8 September 2016
+
+This program will display the initial of each university's name.
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void findInitial(string);  //  find the initials
+
+int main(){
+	string word1 = "st";
+	char choice; 
+
+	do
+	{
+		cout << "Enter a university name:";  
+		getline(cin,word1);  //  get university name
+		cout << "The university's initial is ";
+		findInitial(word1);  //  call function
+		cout << endl <<"Continue(y/n)?";
+		cin >> choice;  //  ask to continue
+		if (choice == 'N' || choice == 'n')  //  for some reason if i don't have this, my loop was still continuing...? =/
+			break;
+		cin.clear();  //  clear the buffer
+		cin.ignore();  //  clear the buffer
+	} while (choice !='N' || choice !='n');  // "while loop"
+	return 0;
+}
+
+void findInitial(string name){
+	for (int i = 0; i < name.size(); i++){  //  for loop
+		if ((name[i] >= 'A') && name[i] <= 'Z')  //  only allow capital letters
+			cout << name[i];
+	}
+
+}
