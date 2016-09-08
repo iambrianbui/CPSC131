@@ -1,0 +1,62 @@
+/*
+CPSC 131
+Created by:  Brian Bui
+Created on:  7 September 2016, 11:55 pm
+Last edited on:  8 September 2016
+
+This program will give data about sentences
+*/
+
+#include<iostream>
+#include<cctype>
+
+using namespace std;
+
+int countUpper(char[], int);
+int countDigit(char[], int);
+int countWords(char[], int);
+
+
+int main(){
+	int upper = 0, digit = 0, word = 0;
+	char sentence[100];
+
+	cout << "Enter a sentence:  " << endl;
+	cin.getline(sentence, 100);
+
+	countUpper(sentence, upper);
+	countDigit(sentence, digit);
+	countWords(sentence, word);
+	cout << "Number of uppercase letters:  " << upper << endl;
+	cout << "Number of digits:  " << digit << endl;
+	cout << "Number of words:  " << word << endl;
+
+}
+
+int countUpper(char* sentence, int counter){
+	for (int i = 0; i < 100; i++)
+	{
+		if (isupper(sentence[i]))
+			counter++;
+	}
+	return counter;
+}
+
+int countDigit(char* sentence, int counter){
+	for (int i = 0; i < 100; i++)
+	{
+		if (isdigit(sentence[i]))
+			counter++;
+	}
+	return counter;
+}
+
+int countWords(char* sentence, int counter){
+	for (int i = 0; i < 100; i++)
+	{
+		if (isspace(sentence[i]))
+			counter++;
+	}
+	counter++;
+	return counter;
+}
