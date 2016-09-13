@@ -1,0 +1,125 @@
+/*
+Created by:  Brian Bui
+Created on:  12 September 2016
+Last Edited:  12 September 2016
+
+This program will use a stack to convert numbers from base 10 to a new base.
+*/
+
+#include <iostream>
+#include "stack.h"
+#include <string>
+
+using namespace std;
+
+STACK<int, 20> S;
+
+void getChoice(int&x);
+void newbase2(int n);
+void newbase8(int n);
+void newbase16(int n);
+
+
+
+int main(){
+	int number;
+	int choice = 2;
+	S.clearStack();
+	cout << "Enter a number at base 10:  " << endl;
+	cin >> number;
+	cout << "Enter the new base (2, 8, or 16):  " << endl;
+	cin >> choice;
+	getChoice(choice);
+
+	cout << number << " base 10 is ";
+
+	if (choice == 2){
+		newbase2(number);
+	}
+	if (choice == 8){
+		newbase8(number);
+	}
+	if (choice == 16){
+		newbase16(number);
+	}
+
+	cin.get();
+	return 0;
+}
+
+void getChoice(int&x)
+{
+	while (!(x == 2 || 8 || 16))
+	{
+		while (cin.fail())
+		{
+			cin.clear();
+			cin.ignore();
+		}
+		cout << "Invalid input." << endl;
+		cin >> x;
+	}
+}
+
+void newbase2(int n){
+	int r;
+
+	while (n != 0){
+		r = n % 2;
+		S.pushStack(r);
+		n = n / 2;
+	}
+	while (!S.emptyStack()){
+		r = S.popStack();
+		cout << r;
+	}
+	cout << " at base 2." << endl;
+}
+
+void newbase8(int n){
+	int r;
+
+	while (n != 0){
+		r = n % 8;
+		S.pushStack(r);
+		n = n / 8;
+	}
+	while (!S.emptyStack()){
+		r = S.popStack();
+		cout << r;
+	}
+	cout << " at base 8." << endl;
+}
+
+void newbase16(int n){
+	int r;
+
+	while (n != 0){
+		r = n % 16;
+		S.pushStack(r);
+		n = n / 16;
+	}
+	while (!S.emptyStack()){
+		r = S.popStack();
+
+		if (r < 10)
+			cout << r;
+		else if (r > 9)
+			if (r == 10)
+				cout << 'A';
+		if (r == 11)
+			cout << 'B';
+		if (r == 12)
+			cout << 'C';
+		if (r == 13)
+			cout << 'D';
+		if (r == 14)
+			cout << 'E';
+		if (r == 15)
+			cout << 'F';
+		if (r == 16)
+			cout << 'G';
+	}
+	
+	cout << " at base 16." << endl;
+}
