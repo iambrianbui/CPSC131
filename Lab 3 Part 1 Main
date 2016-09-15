@@ -1,0 +1,24 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include "record.h"
+
+using namespace std;
+
+
+
+THREE<7> p;
+
+int main(){
+	float gpaAverage = 0;
+
+	p.copyData("three.txt");
+	p.displayAll();
+	int ageAverage = p.findAgeAverage();
+	p.findGpaAve(gpaAverage);
+	p.displayAverages(ageAverage, gpaAverage);
+
+
+	return 0;
+}
+
