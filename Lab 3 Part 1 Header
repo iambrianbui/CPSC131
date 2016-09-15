@@ -1,0 +1,89 @@
+#ifndef Record
+#define Record
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+template <int INDEX>
+class THREE{
+private:  struct RECORD{
+	char name[20];
+	int age;
+	float gpa;
+};
+		  RECORD a[INDEX];
+
+public:  void copyData(string fname);
+		 void displayAll();
+		 int findAgeAverage();
+		 void findGpaAve(float& gpaAve);
+		 void displayAverages(int ageAve, float gpaAve);
+		 void displayNameAboveGpa(float gpaAve);
+		 void displayHighGpaNames();
+		 void displayOldestName();
+		 ~THREE(){};
+};
+
+
+template <int INDEX>
+void THREE<INDEX>::copyData(string fname)
+{
+	fstream f;
+	f.open(fname, ios::in);
+	for (int i = 0; i < INDEX; i++){
+		f >> p.a[i].name >> p.a[i].age >> p.a[i].gpa;
+
+	};
+	f.close();
+}
+
+template <int INDEX>
+void THREE<INDEX>::displayAll(){
+	for (int i = 0; i < INDEX; i++){
+		cout << p.a[i].name << '\t' << p.a[i].age << '\t' << p.a[i].gpa << endl;
+	};
+}
+
+template <int INDEX>
+int THREE<INDEX>::findAgeAverage(){
+	int ageAverage = 0;
+
+	for (int i = 0; i < INDEX; i++){
+		ageAverage += p.a[i].age;
+	}
+	ageAverage /= INDEX;
+
+	return ageAverage;
+}
+
+template <int INDEX>
+void THREE<INDEX>::findGpaAve(float& gpaAve){
+	for (int i = 0; i < INDEX; i++)
+		gpaAve += p.a[i].gpa;
+	gpaAve /= INDEX;
+
+}
+
+template <int INDEX>
+void THREE<INDEX>::displayAverages(int ageAve, float gpaAve){
+	cout << "Their age average is:  " << ageAve << endl
+		<< "Their GPA average is:  " << gpaAve << endl;
+}
+
+template <int INDEX>
+void THREE<INDEX>::displayNameAboveGpa(float gpaAve){
+	cout << "People above the GPA average:  " << endl;
+	for (int i = 0; i < INDEX; i++)  //  simple for loop
+	{
+		if (p.a[i].gpa > gpaAve)  //  check for average
+		{
+			cout << p.a[i].name << '\t' << p.a[i].age << '\t' << p.a[i].gpa;
+		}
+	}
+}
+
+
+
+
+#endif
