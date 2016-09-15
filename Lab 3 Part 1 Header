@@ -31,18 +31,22 @@ void THREE<INDEX>::copyData(string fname)
 {
 	fstream f;
 	f.open(fname, ios::in);
-	for (int i = 0; i < INDEX; i++){
-		f >> p.a[i].name >> p.a[i].age >> p.a[i].gpa;
-
-	};
-	f.close();
+	string line;
+	
+		for (int i = 0; i < INDEX; i++){
+			f.get(a[i].name, 20);
+			f >> a[i].age >> a[i].gpa;
+			getline(f, line);
+		}
+		f.close();
+	
 }
 
 template <int INDEX>
 void THREE<INDEX>::displayAll(){
 	for (int i = 0; i < INDEX; i++){
-		cout << p.a[i].name << '\t' << p.a[i].age << '\t' << p.a[i].gpa << endl;
-	};
+		cout << a[i].name << '\t' << a[i].age << '\t' << a[i].gpa << endl;
+	}
 }
 
 template <int INDEX>
@@ -50,7 +54,7 @@ int THREE<INDEX>::findAgeAverage(){
 	int ageAverage = 0;
 
 	for (int i = 0; i < INDEX; i++){
-		ageAverage += p.a[i].age;
+		ageAverage += a[i].age;
 	}
 	ageAverage /= INDEX;
 
@@ -60,7 +64,7 @@ int THREE<INDEX>::findAgeAverage(){
 template <int INDEX>
 void THREE<INDEX>::findGpaAve(float& gpaAve){
 	for (int i = 0; i < INDEX; i++)
-		gpaAve += p.a[i].gpa;
+		gpaAve += a[i].gpa;
 	gpaAve /= INDEX;
 
 }
@@ -76,13 +80,44 @@ void THREE<INDEX>::displayNameAboveGpa(float gpaAve){
 	cout << "People above the GPA average:  " << endl;
 	for (int i = 0; i < INDEX; i++)  //  simple for loop
 	{
-		if (p.a[i].gpa > gpaAve)  //  check for average
+		if (a[i].gpa > gpaAve)  //  check for average
 		{
-			cout << p.a[i].name << '\t' << p.a[i].age << '\t' << p.a[i].gpa;
+			cout << a[i].name << endl;
 		}
 	}
 }
 
+template <int INDEX>
+void THREE<INDEX>::displayHighGpaNames(){
+	int highestIndex = 0;
+	for (int i = 0; i < INDEX; i++){
+		if (a[highestIndex].gpa < a[i].gpa)
+			highestIndex = i;
+	}
+	cout << "The people with the highest GPA are:  ";
+	for (int i = 0; i < INDEX; i++){
+		if (a[i].gpa == a[highestIndex].gpa)
+		cout << '\t' << a[i].name;
+
+	}
+	cout << endl;
+}
+
+template <int INDEX>
+void THREE<INDEX>::displayOldestName(){
+	int highestIndex = 0;
+	for (int i = 0; i < INDEX; i++){
+		if (a[highestIndex].age < a[i].age)
+			highestIndex = i;
+	}
+	cout << "The oldest people are:  ";
+	for (int i = 0; i < INDEX; i++){
+		if (a[i].age == a[highestIndex].age)
+			cout << '\t' << a[i].name;
+
+	}
+	cout << endl;
+}
 
 
 
