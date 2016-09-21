@@ -1,0 +1,73 @@
+/*
+CPSC-131
+Created by Brian Bui
+Created on 19 September 2016
+Last edited 19 September 2016
+
+This program will read a phrase and determine whether it is a palindrome or not.
+*/
+
+#include<iostream>
+#include"MYLIB.h"
+#include<string>
+
+void pushOriginalStack(char[], int x);
+void pushTempStack(char[], int x);
+void pushReverseStack();
+
+
+STACK<char, 40> originalStack;
+STACK<char, 40> tempStack;
+STACK<char, 40> reverseStack;	
+
+using namespace std;
+
+int main(){
+
+	string str;
+	bool palindrome = true;
+
+	getline(cin, str);
+	originalStack.clearStack();
+	tempStack.clearStack();
+	cout << "The phrase was:  " << str << endl;
+
+	for (int i = 0; i < str.length(); i++){
+		char letter = str[i];
+
+		if (isalpha(str[i])){
+			originalStack.pushStack(str[i]);
+			tempStack.pushStack(str[i]);
+		}
+	}
+	pushReverseStack();
+	//while (!originalStack.emptyStack() && !reverseStack.emptyStack()){  here's the problem
+	//	char orig, rvse;
+	//	orig = originalStack.popStack;
+	//	rvse = reverseStack.emptyStack;
+	//	if (orig != rvse){
+	//		palindrome = false;
+	//		break;
+	//	}
+	//}
+
+	if (palindrome == false)
+		cout << "The phrase is not a palindrome." << endl;
+	else
+		cout << "The phrase is a palindrome." << endl;
+	
+	return 0;
+
+}
+
+void pushReverseStack(){
+	char x;
+	reverseStack.clearStack();
+
+	while (!tempStack.emptyStack()){
+		x = tempStack.popStack();
+		reverseStack.pushStack(x);
+	}
+}
+
+
