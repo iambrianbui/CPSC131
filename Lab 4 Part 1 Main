@@ -33,23 +33,24 @@ int main(){
 	cout << "The phrase was:  " << str << endl;
 
 	for (int i = 0; i < str.length(); i++){
-		char letter = str[i];
 
 		if (isalpha(str[i])){
-			originalStack.pushStack(str[i]);
-			tempStack.pushStack(str[i]);
+			char letter = str[i];
+			letter = tolower(letter);
+			originalStack.pushStack(letter);
+			tempStack.pushStack(letter);
 		}
 	}
 	pushReverseStack();
-	//while (!originalStack.emptyStack() && !reverseStack.emptyStack()){  here's the problem
-	//	char orig, rvse;
-	//	orig = originalStack.popStack;
-	//	rvse = reverseStack.emptyStack;
-	//	if (orig != rvse){
-	//		palindrome = false;
-	//		break;
-	//	}
-	//}
+	while (!originalStack.emptyStack() && !reverseStack.emptyStack()){
+		char orig, rvse;
+		orig = originalStack.popStack();
+		rvse = reverseStack.popStack();
+		if (orig != rvse){
+			palindrome = false;
+			break;
+		}
+	}
 
 	if (palindrome == false)
 		cout << "The phrase is not a palindrome." << endl;
