@@ -1,0 +1,52 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  21 September 2016
+Last edited:  21 September 2016
+
+This program will sort, display and sort arrays.
+*/
+
+#include <iostream>  //  standard
+#include <algorithm>  //  sort function
+#include "MYLIB.h"  //  I MADE THIS
+#include <string>  //  strings
+#include <ctime>  //  time 
+
+using namespace std;  
+
+int main(){
+	TWO<int, 6> P;  //  initalize class for int
+	TWO<string, 7> Q;  //  initialize class for strings
+	TWO<float, 3> R;  //  initialize class for floats
+	 
+	time_t p;  //  initialize time
+	int a[6] = { 3, 9, 10, 7, 1, 8 };  //  initialize and define array a
+	string days[7] = { "Mon", "Tue", "Wed", "Thr", "Fri", "Sat", "Sun" };  //  initialize and define array days
+	float gpa[3] = {2.1, 4.2, 2.8};  //  initialize and define array gpa
+
+	P.copy(a);  //  copy array to header
+	cout << "This is the original array:\t"; P.display();  //  display
+	cout << endl;  
+	P.sortArray();  //  sort the array
+	cout << "This is the sorted array:\t"; P.display();  //  display
+	cout << endl;  
+
+	Q.copy(days);  //  copy array to header
+	cout << "This is the original array:\t"; Q.display();  //  display
+	cout << endl;
+	Q.sortArray();  //  sort the array
+	cout << "This is the sorted array:\t"; Q.display();  //  display
+	cout << endl;
+
+	R.copy(gpa);  //  copy array to header
+	cout << "This is the original array:\t"; R.display();  //  display
+	cout << endl;
+	R.sortArray();  //  sort the array
+	cout << "This is the sorted array:\t"; R.display();  //  display
+	cout << endl;
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+	return 0;
+}
