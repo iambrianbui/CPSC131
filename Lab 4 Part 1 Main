@@ -7,66 +7,80 @@ Last edited 19 September 2016
 This program will read a phrase and determine whether it is a palindrome or not.
 */
 
-#include<iostream>
-#include"MYLIB.h"
-#include<string>
+#include<iostream>  // standard
+#include"MYLIB.h"  //  I MADE THIS
+#include<string>  // string
+#include<ctime>
 
-void pushOriginalStack(char[], int x);
-void pushTempStack(char[], int x);
-void pushReverseStack();
+void pushOriginalStack(char[], int x);  //  push the original stack
+void pushTempStack(char[], int x);  //  push the temporary stack
+void pushReverseStack();  //  push the stack backwards
 
 
-STACK<char, 40> originalStack;
-STACK<char, 40> tempStack;
-STACK<char, 40> reverseStack;	
+STACK<char, 40> originalStack;  //  initalize original stack
+STACK<char, 40> tempStack;  //  initialize temporary stack
+STACK<char, 40> reverseStack;	//  initialize reverse stack
 
 using namespace std;
 
 int main(){
-
-	string str;
-	bool palindrome = true;
-
-	getline(cin, str);
-	originalStack.clearStack();
-	tempStack.clearStack();
-	cout << "The phrase was:  " << str << endl;
-
-	for (int i = 0; i < str.length(); i++){
-
-		if (isalpha(str[i])){
-			char letter = str[i];
-			letter = tolower(letter);
-			originalStack.pushStack(letter);
-			tempStack.pushStack(letter);
-		}
-	}
-	pushReverseStack();
-	while (!originalStack.emptyStack() && !reverseStack.emptyStack()){
-		char orig, rvse;
-		orig = originalStack.popStack();
-		rvse = reverseStack.popStack();
-		if (orig != rvse){
-			palindrome = false;
-			break;
-		}
-	}
-
-	if (palindrome == false)
-		cout << "The phrase is not a palindrome." << endl;
-	else
-		cout << "The phrase is a palindrome." << endl;
 	
+	string str;  //  int string
+	bool palindrome = true;  //  int boolean to see if it is or is not a palindrome
+	char ans;  //  int char to see answer
+
+	do{
+		cout << "Enter a phrase:  ";
+		getline(cin, str);  //  get the phrase
+		cin.ignore();  //  clear the queue
+		cin.clear();
+		originalStack.clearStack();  //  clear the stack
+		tempStack.clearStack();  //  clear the stack
+
+		for (int i = 0; i < str.length(); i++){  //  for loop
+
+			if (isalpha(str[i])){  //  if it is an alphabet
+				char letter = str[i];  //  int letter and make it equal to the letter of the string
+				letter = tolower(letter);  //  make it lowercase
+				originalStack.pushStack(letter);  //  push the stack
+				tempStack.pushStack(letter);  //  push the stack
+			}
+		}
+		pushReverseStack();  //  push the reverse stack
+		while (!originalStack.emptyStack() && !reverseStack.emptyStack()){  //  while both stacks aren't empty
+			char orig, rvse;  //  int chars like earlier
+			orig = originalStack.popStack();  //  orig = pop stack of original
+			rvse = reverseStack.popStack();  //  rvse = pop stack of the reverse
+			if (orig != rvse){  //  if they are not equal
+				palindrome = false;  //  they are not palindrome
+				break;  //  we don't need to see anymore of this
+			}
+		}
+
+		if (palindrome == false)  //  if false
+			cout << "The phrase is not a palindrome." << endl;
+		else  // if true
+			cout << "The phrase is a palindrome." << endl;
+
+		cout << "CONTINUE? (y/n)"<< endl;
+		cin >> ans;  // get ans to continue
+		cin.ignore();  //  clear the queue
+		cin.clear();
+
+	} while ( (ans != 'N')  && (ans != 'n'));  //  if it's not no
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
 	return 0;
 
 }
 
 void pushReverseStack(){
-	char x;
-	reverseStack.clearStack();
+	char x;  //  int character
+	reverseStack.clearStack();  //  clear the stack
 
-	while (!tempStack.emptyStack()){
-		x = tempStack.popStack();
+	while (!tempStack.emptyStack()){  //  while the temp stack isn't empty
+		x = tempStack.popStack();  //  dump the temp stack into reverse
 		reverseStack.pushStack(x);
 	}
 }
