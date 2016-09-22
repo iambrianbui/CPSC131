@@ -1,0 +1,31 @@
+#ifndef MYLIB  //  standard header stuff
+#define MYLIB
+
+template<class T, int N>  //  set template, we don't know the type but we know that the latter must be an integer
+class TWO{  //  create class TWO
+private:  T x[N];  //  array with type T
+public:  void copy(T t[]);  //  copy the array
+		 void display();  //  display the array
+		 void sortArray();  //  sort the array
+};
+
+template <class T, int N>  
+void TWO<T, N>::copy(T ARRAY[]){  
+	for (int i = 0; i < N; i++){  //  for loop
+		x[i] = ARRAY[i];  //  copy array to x[i]
+	}
+}
+
+template <class T, int N>
+void TWO<T, N>::display(){
+	for (int i = 0; i < N; i++){  //  for loop
+		cout << x[i] << '\t';  //  display array
+	}
+}
+
+template <class T, int N>
+void TWO<T, N>::sortArray(){
+	sort(x, x + N);  //  sort function from algorithm
+}
+
+#endif
