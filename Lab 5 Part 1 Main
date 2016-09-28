@@ -1,0 +1,30 @@
+/*
+CPSC131
+Created by:  Brian Bui
+Created on:  26 September 2016
+Last Edited:  27 September 2016
+
+*/
+
+#include <iostream>
+#include "LinkedList.h"
+#include <ctime>
+using namespace std;
+
+
+int main(){
+	LIST l;
+	float averageAge = 0;
+	time_t p; //  init time
+
+	int age[5] = { 19, 21, 17, 22, 33 };
+	l.copyArray(age, 5);
+	l.displayLinkedList();
+	l.computeAverage(averageAge);
+	cout << "The average age is:  " << averageAge << endl;
+	l.findAboveAverage(averageAge);
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+	return 0;
+}
