@@ -1,0 +1,71 @@
+#ifndef LinkedList
+#define LinkedList
+
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+
+class LIST{
+private:  struct Node{
+	string name;
+	int age;
+	Node *next;
+};
+		  Node *List;
+		  Node *p;
+			
+public:  
+	void copyFile(string);
+	void displayLinkedList();
+	void findOldest();
+
+};
+
+void LIST::copyFile(string fileName){
+	fstream f;
+
+	f.open(fileName, ios::in);
+	List = new Node;
+	f >> List->name;
+	f >> List->age;
+	p = List;
+	while (!f.eof()){
+		p->next = new Node;
+		p = p->next;
+		f >> p->name;
+		f >> p->age;
+	}
+	p->next = NULL;
+
+	f.close();
+}
+
+void LIST::displayLinkedList(){
+	p = List;
+	while (p != NULL){
+		cout << p->name << "\t" << p->age << endl;
+		p = p->next;
+	}
+}
+
+void LIST::findOldest(){
+	int greatestAge = 0;
+	p = List;
+	while (p != NULL){
+		if (p->age > greatestAge)
+			greatestAge = p->age;
+		p = p->next;
+	}
+	p = List;
+	while (p != NULL){
+		if (p->age == greatestAge)
+			cout << "The oldest person is " << p->name << endl;
+		p = p->next;
+	}
+
+
+}
+
+
+#endif LinkedList
