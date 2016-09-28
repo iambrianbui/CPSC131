@@ -1,0 +1,68 @@
+#ifndef LinkedList
+#define LinkedList
+
+#include <iostream>
+using namespace std;
+
+class LIST{
+private:  
+	struct Node{
+		int info;
+		Node *next;
+	};
+	Node *List;
+	Node *p;
+
+public:
+	void copyArray(int [], int);
+	void displayLinkedList();
+	float computeAverage(float&);
+	void findAboveAverage(float average);
+
+};
+
+void LIST::copyArray(int x[], int max){
+	List = new(Node);
+	List->info = x[0];
+	p = List;
+	for (int i = 1; i <max; i++){
+		p->next = new Node;
+		p = p->next;
+		p->info = x[i];
+	}
+	p->next = NULL;
+}
+
+void LIST::displayLinkedList(){
+	p = List;
+	while (p != NULL){
+		cout << p->info << "->";
+		p = p->next;
+	}
+	cout << "NULL \n";
+}
+
+float LIST::computeAverage(float& average){
+	int index = 0;
+	p = List;
+	while (p != NULL){
+		average += p->info;
+		p = p->next;
+		index++;
+	}
+	average = average / index;
+	return average;
+}
+
+void LIST::findAboveAverage(float average){
+	p = List;
+	int counter = 0;
+	while (p != NULL){
+		if (p->info >= average)
+			counter++;
+		p = p->next;
+	}
+	cout << "There are " << counter << " people whose age is above the average." << endl;
+}
+
+#endif LinkedList
