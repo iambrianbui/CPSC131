@@ -1,0 +1,31 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  28 September 2016
+Last edited:  28 September 2016
+
+This program will import a Linked List from a file and find the oldest person.
+
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "LinkedList.h"
+#include <ctime>
+
+using namespace std;
+
+int main(){
+	LIST l;
+	time_t p;
+	l.copyFile("pro5.txt");
+	cout << "Name \t Age" << endl << "---------------" << endl;
+
+	l.displayLinkedList();
+	l.findOldest();
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+	return 0;
+}
