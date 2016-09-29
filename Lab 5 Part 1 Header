@@ -1,68 +1,68 @@
-#ifndef LinkedList
-#define LinkedList
+#ifndef LinkedList  //  if LinkedList is not defined
+#define LinkedList  //  then define it
 
-#include <iostream>
+#include <iostream>  // standard
 using namespace std;
 
-class LIST{
+class LIST{  //   create class LIST
 private:  
-	struct Node{
-		int info;
-		Node *next;
+	struct Node{  //  create Node structure
+		int info;  //  info type int
+		Node *next;  //  pointer that will point to the next node or NULL (hopefully)
 	};
-	Node *List;
-	Node *p;
+	Node *List;  //  create master key
+	Node *p;  //  key copy
 
 public:
-	void copyArray(int [], int);
-	void displayLinkedList();
-	float computeAverage(float&);
-	void findAboveAverage(float average);
+	void copyArray(int [], int);  //  this function will copy the array into a linked list
+	void displayLinkedList();  //  this function will display the linked list
+	float computeAverage(float&);  //  this function will compute the age average and return it
+	void findAboveAverage(float average);  //  this function will find the nodes that are about the age average
 
 };
 
-void LIST::copyArray(int x[], int max){
-	List = new(Node);
-	List->info = x[0];
-	p = List;
-	for (int i = 1; i <max; i++){
-		p->next = new Node;
-		p = p->next;
-		p->info = x[i];
+void LIST::copyArray(int x[], int max){  
+	List = new(Node);  //  have the master key point to the first node
+	List->info = x[0];  //  insert the first data point
+	p = List;  //  create the copy key
+	for (int i = 1; i <max; i++){  //  for each index EXCEPT the first
+		p->next = new Node;  //  have the next pointer point to the new adddrses
+		p = p->next;  //  have the key go through
+		p->info = x[i];  //  insert info
 	}
-	p->next = NULL;
+	p->next = NULL;  //  have the last node point to nothing
 }
 
 void LIST::displayLinkedList(){
-	p = List;
-	while (p != NULL){
-		cout << p->info << "->";
-		p = p->next;
+	p = List;  //  reset the temp key
+	while (p != NULL){  //  while the key has a door to open
+		cout << p->info << "->";  // print the info
+		p = p->next;  //  go to the next room
 	}
-	cout << "NULL \n";
+	cout << "NULL \n"; 
 }
 
 float LIST::computeAverage(float& average){
-	int index = 0;
-	p = List;
-	while (p != NULL){
-		average += p->info;
-		p = p->next;
-		index++;
+	int index = 0;  // initalize index
+	p = List;  //  reset the temp key
+	while (p != NULL){  //  while the key has a door to open
+		average += p->info;  //  increase the average by the info
+		p = p->next;  //  go to the next room
+		index++;  //  increase the index
 	}
-	average = average / index;
-	return average;
+	average = average / index;  //  calculate
+	return average;  //  return
 }
 
 void LIST::findAboveAverage(float average){
-	p = List;
-	int counter = 0;
-	while (p != NULL){
-		if (p->info >= average)
-			counter++;
-		p = p->next;
+	p = List;  //  reset the temp key
+	int counter = 0;  //  initialize counter
+	while (p != NULL){  //  while the key has a room to open
+		if (p->info >= average)  //  if the info is above average
+			counter++;  //  increase the counter
+		p = p->next;  //  go onto the next room
 	}
 	cout << "There are " << counter << " people whose age is above the average." << endl;
 }
 
-#endif LinkedList
+#endif LinkedList  //  end defining
