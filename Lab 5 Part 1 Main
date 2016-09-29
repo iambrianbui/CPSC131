@@ -6,23 +6,23 @@ Last Edited:  27 September 2016
 
 */
 
-#include <iostream>
-#include "LinkedList.h"
-#include <ctime>
-using namespace std;
+#include <iostream>  //  standard
+#include "LinkedList.h"  //  I MADE THIS
+#include <ctime>  //  for time
+using namespace std;  
 
 
 int main(){
-	LIST l;
-	float averageAge = 0;
+	LIST l;  //  call on Class List
+	float averageAge = 0;  //  initialize average age
 	time_t p; //  init time
 
-	int age[5] = { 19, 21, 17, 22, 33 };
-	l.copyArray(age, 5);
-	l.displayLinkedList();
-	l.computeAverage(averageAge);
-	cout << "The average age is:  " << averageAge << endl;
-	l.findAboveAverage(averageAge);
+	int age[5] = { 19, 21, 17, 22, 33 };  //  array of type int
+	l.copyArray(age, 5);  //  call on copy array and pass the array age and the number 5
+	l.displayLinkedList();  //  call on the display linked list function
+	l.computeAverage(averageAge);  //  compute the average age and then assign the value to averageAge
+	cout << "The average age is:  " << averageAge << endl;  
+	l.findAboveAverage(averageAge);  //  call on the findAboveAverage function
 
 	time(&p);  //  find time
 	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
