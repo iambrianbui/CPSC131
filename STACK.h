@@ -8,7 +8,7 @@ using namespace std;
 template <class T>
 class STACK_LIST{
 private:  struct node{
-	t info;
+	T info;
 	node *next;
 };
 		  node *stack;
@@ -19,7 +19,7 @@ public:  STACK_LIST();
 };
 
 template<class T>
-void STACK_LIST<T>::STACK_LIST(){
+STACK_LIST<T>::STACK_LIST(){
 	stack = NULL;
 }
 
@@ -45,7 +45,7 @@ bool STACK_LIST<T>::emptyStack(){
 	else return false;
 }
 
-template<T>
+template<class T>
 T STACK_LIST<T>::popStack(){
 	node *p = stack; T x;
 	x = stack->info;
