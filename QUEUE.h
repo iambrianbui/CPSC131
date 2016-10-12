@@ -8,7 +8,7 @@ using namespace std;
 template <class T>
 class QUEUE_LIST{
 private:  struct node{
-	t info;
+	T info;
 	node *next;
 };
 		  node *front, *rear;
@@ -19,7 +19,7 @@ public:  QUEUE_LIST();
 };
 
 template<class T>
-void QUEUE_LIST<T>::QUEUE_LIST(){
+QUEUE_LIST<T>::QUEUE_LIST(){
 	front = NULL; rear = NULL;
 }
 
@@ -46,7 +46,7 @@ bool QUEUE_LIST<T>::emptyQueue(){
 	else return false;
 }
 
-template<T>
+template<class T>
 T QUEUE_LIST<T>::popQueue(){
 	node *p = front; T x;
 	x = front->info;
