@@ -1,0 +1,46 @@
+/*
+CPSC131
+Created by:  Brian Bui
+Created on:  12 October 2016
+Last edited:  12 October 2016
+
+This program will manipulate an array using stack, queue, and ordered linked lists.
+
+*/
+
+#include<iostream>
+#include<ctime>
+#include "QUEUE.h"  //  I AMDE THIS
+#include "STACK.h"  //  AND THIS 
+#include "ORDER.h"  //  ANDDDD THIS
+
+int main(){
+	QUEUE_LIST<int> q; //  create class q
+	STACK_LIST<int> s;  //  create class s
+	ORDERED_LIST<int> o;  //  created class o  
+
+	time_t p;
+
+	int a[8] = { 9, 3, 7, 2, 8, 1, 4, 5 };  //  initialize and assign values to array a
+	for (int i = 0; i < 8; i++){  //  for loop
+		q.pushQueue(a[i]);  //  push a[i] into each class
+		s.pushStack(a[i]);
+		o.insert(a[i]);
+	}
+	cout << "In reverse order:  " << endl;
+	while (!s.emptyStack()){  //  while the stack is not empty
+		cout << s.popStack() << "->";  //  pop
+	}
+	cout << "NULL" << endl << endl << "In same order:  " << endl;
+	while (!q.emptyQueue()){  //  while the queue is not empty
+		cout << q.popQueue() << "->";  //  pop
+	}
+	cout << "NULL" << endl << endl << "In sorted order:  " << endl;
+	o.display();  //  display ordered list
+
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+}
