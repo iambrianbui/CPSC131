@@ -1,0 +1,64 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  10 October 2016
+Last edited:  12 October 2016
+
+This program will read a phrase and determine whether the phrase is or is not a palindrome.
+*/
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include "QUEUE.h"  //  I MADE THIS
+#include "STACK.h"  //  I MADE THIS TOO
+#include <ctime>
+
+using namespace std;
+
+int main(){
+	string phrase;  //  phrase the user will be typing in
+	char choice;  //  to continue
+	time_t p;
+
+	do{
+		STACK_LIST<char> s;  //  create a stack
+		QUEUE_LIST<char> q;  //  create a queue
+
+		cout << "Enter a phrase:  " << endl;
+		getline(cin, phrase);  //  user enters the phrase
+		for (int i = 0; i < phrase.length(); i++){  //  for loop
+			char letter = phrase[i];  // have a letter equal to phrase[i]
+			letter = tolower(letter);  //  make it lowercase
+			if (isalpha(letter)){
+				s.pushStack(letter);  //  push into stack
+				q.pushQueue(letter);  //  push into queue
+			}
+		}
+		while (!s.emptyStack()){  //  while the stack is not empty
+			char ch1, ch2;
+			ch1 = s.popStack();  //  pop the stack into ch1
+			ch2 = q.popQueue();  //  pop the queue into ch2
+			if (ch1 != ch2){  //  if they are not equal
+				break;  //  break
+			}
+		}
+
+		if (s.emptyStack()){  //  if the stack is empty
+			cout << "Is a PALINDROME" << endl;  //  the loop finished and therefore they are palindromes
+		}
+		else  //  if the stack isn't empty
+			cout << "Not a PALINDROME" << endl;  //  not palindromes
+
+		cout << "Continue (y/n)?" << endl;
+		cin >> choice;  
+		if (choice == 'N' || choice == 'n')
+			break;
+	} while (choice != 'N' || choice != 'n');
+
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+	return 0;
+
+}
