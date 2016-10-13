@@ -1,0 +1,70 @@
+#ifndef QUEUE  //  if not defined
+#define QUEUE  //  define QUEUE
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+
+template <class T>  //  template
+class QUEUE_LIST{  //  create class QUEUE_LIST
+private:  struct node{  //  node stuff
+	T coeff;  //  info here of type T
+	T power;
+	node *next;  //  bring me to the next room
+};
+		  node *front, *rear;  //  initialize front node and rear node
+public:  QUEUE_LIST();  //  constructor to set nodes to node
+		 void pushQueue(T, T);  //  push T
+		 void displayQueue();  //  display the queue
+		 int calculateQueue(int);  //  calculate the queue
+};
+
+template<class T>
+QUEUE_LIST<T>::QUEUE_LIST(){
+	front = NULL; rear = NULL;  //  set to null
+}
+
+template<class T>
+void QUEUE_LIST<T>::pushQueue(T x, T y){
+	node *p;  //  create node p
+	p = new node;  //  p is a new node, so find space for it
+	p->coeff = x;  //  the info inside p is x
+	p->power = y;
+	p->next = NULL;  //  the new node is in front, so it's pointing to nothing
+	if (front == NULL){  //  if it is the first node
+		front = p;  //  both front and rear point to this
+		rear = p;
+	}
+	else{  //  if else
+		rear->next = p;  //  have the last node point to this
+		rear = p;  //  and change to "last node"
+	}
+
+}
+
+template<class T>
+void QUEUE_LIST<T>::displayQueue(){
+	node *p = front;  //  create a copy of the master key
+	while (p->next != NULL){  //  while p->next isn't pointing to nothing
+		if (p->coeff > 0)  //  if the coefficient is positive
+			cout << " + ";  //  put a plus sign there
+		cout << p->coeff << "X^" << p->power;  //  display
+		p = p->next;  //  go to the next room
+	}
+	cout << endl;  //  new line when done
+}
+
+template<class T>
+int QUEUE_LIST<T>::calculateQueue(int x){
+	node *p = front;  //  create a copy of the master key
+	int val = 0;  //  init the value
+	while (p->next != NULL){  //  whie p->next isn't pointing to nothing
+		val += p->coeff * pow(x, p->power);  //  update the value
+		p = p->next;  //  go to the next door
+	}
+
+	return val;  //  return final val
+}
+
+#endif
