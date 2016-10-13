@@ -1,0 +1,42 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  10 October 2016
+Last edited:  12 October 2016
+
+This program will evaluate f(x) given the value of x.
+*/
+
+#include<iostream>
+#include<ctime>
+#include<cmath>
+#include "QUEUE.h"
+
+int main(){
+
+	QUEUE_LIST<int> queue; // queue
+	time_t p;
+	int coeff, powerOf;  //  init the coefficient and the power
+
+	do{  // do this
+		cout << "Enter the coefficient and the power of a term (0 0) to stop:  ";
+		cin >> coeff >> powerOf;  //  input the coefficient and the power
+		queue.pushQueue(coeff, powerOf);  //  push these
+		
+		
+	} while (!((coeff == 0) && (powerOf == 0)));  //  while you don't have 0 0
+	cout << endl;
+	cout << "F(X) = ";  
+	queue.displayQueue();  //  call display queue function
+
+	int x, val;  //  initialize x and the value
+	cout << "Enter the value of X:  "; 
+	cin >> x;  // input x
+	val = queue.calculateQueue(x); //  calculate the value
+	cout << "F(" << x << ") = " << val << endl;  //  display
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+}
