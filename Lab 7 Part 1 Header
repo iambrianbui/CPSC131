@@ -1,0 +1,101 @@
+#ifndef ORDER  //  if not defined
+#define ORDER  //  then define ORDER
+
+#include <iostream>
+#include<string>
+#include<fstream>
+using namespace std;
+
+
+class ORDERED_LIST{
+private:  struct node{  //  node stuffs
+	int acctNo;  //  account number of type int
+	string name;  //  name of type string
+	float balance;
+	node *next; //  bring me to the next door
+};
+		  node *list;  //  master key
+public:  ORDERED_LIST();   //  constructor
+		 void import(string);		//  import linked list
+		 void insert(int, string, float);
+
+		 void showBalance();
+		 void display();  //  display linked list
+
+
+};
+
+ORDERED_LIST::ORDERED_LIST(){
+	list = NULL;  //  set the master key to null
+}
+
+void ORDERED_LIST::import(string file){	
+	fstream f;
+	f.open(file, ios::in);
+	while (!f.eof()){
+		int a;  //  account number
+		string n;  //  name
+		float b;  //  balance
+		f >> a >> n >> b;
+		insert(a, n, b);
+	}
+
+}
+
+void ORDERED_LIST::insert(int no, string name, float bal){
+	node *p = list, *q = list, *r;  //  create new copies of keys and nodes
+	r = new node;  //  create a new node, make space for it
+	r->acctNo = no;  
+	r->name = name;
+	r->balance = bal;
+	r->next = NULL;  //  it points to nothing
+	//  find where to put the new node
+
+	while (p != NULL && no > p->acctNo){   //  if p is not null and the new info is greater than p's info
+		q = p;  //  change the chaser
+		p = p->next;  //  go to the next door
+	}
+
+	if (p == list){  //  if x is the first node
+		list = r;  //  make the new node the master ky
+		r->next = p;  //  have p point to this new node
+	}
+
+	else if (p == NULL){  //  if x is the last node
+		q->next = r;  //  put it at the end
+	}
+
+	else {  //  if neither nor
+		r->next = p;  //  put it at the middle
+		q->next = r;
+	}
+}
+
+
+void ORDERED_LIST::showBalance(){
+	int no;
+	node *p = list;
+	cout << "Enter your account number:  ";
+	cin >> no;
+	cout << endl;
+	while (p->acctNo != no && p!= NULL){
+		p = p->next;
+		if (p == NULL) break;
+	}
+	if (p == NULL){
+		cout << "Account not found." << endl;
+	}
+}
+
+
+void ORDERED_LIST::display(){
+	node *p = list;  //  make a new key copy
+	cout << "All->";
+	while (p != NULL){  //  while it is pointing to osmething
+		cout << p->acctNo << ", " << p->name  << "->";  //  print the info
+		p = p->next;  //  next door
+	}
+	cout << "NULL" << endl;
+}
+
+#endif
