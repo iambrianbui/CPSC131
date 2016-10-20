@@ -15,11 +15,12 @@ private:  struct node{  //  node stuff
 };
 		  node *front, *rear;  //  initialize front node and rear node
 public:  SHORT_LIST();  //  constructor sets list to null
-		 void import(string);
-		 void insert(string, int);
-		 void display();
-		 void deleteNext();  //  push T
+		 void import(string);  //  import
+		 void insert(string, int);  //  insert 
+		 void display();  //  display
+		 void deleteNext();  //  delete the next person in line
 
+		 bool emptyQueue();  //  check if the queue is empty
 };
 
 SHORT_LIST::SHORT_LIST(){
@@ -99,4 +100,8 @@ void SHORT_LIST::deleteNext(){  //  NEXT PERSON IN LINE PLEASE
 	display();  //  display
 }
 
+bool SHORT_LIST::emptyQueue(){
+	if (front == NULL) return true;  //  if the queue is empty than true
+	else return false;  //  else false
+}
 #endif 
