@@ -19,8 +19,11 @@ public:  ORDERED_LIST();   //  constructor
 		 void import(string);		//  import linked list
 		 void insert(int, string, float);
 
-		 void showBalance();
+		 void showBalance();  //  show the balance of the acct
+		 void deposit();  //  deposit money into the acct
+		 void withdraw();  //  withdraw money into the acct
 		 void display();  //  display linked list
+		 void close();   //  delete the linked list
 
 
 };
@@ -36,8 +39,8 @@ void ORDERED_LIST::import(string file){
 		int a;  //  account number
 		string n;  //  name
 		float b;  //  balance
-		f >> a >> n >> b;
-		insert(a, n, b);
+		f >> a >> n >> b;  //  import into account, name, and balance
+		insert(a, n, b);  //  call insert function
 	}
 
 }
@@ -74,19 +77,67 @@ void ORDERED_LIST::insert(int no, string name, float bal){
 
 void ORDERED_LIST::showBalance(){
 	int no;
-	node *p = list;
-	cout << "Enter your account number:  ";
+	node *p = list;  //  p is a pointer of type node that is equal to list
+	cout << "Enter your account number:  "; 
 	cin >> no;
 	cout << endl;
-	while (p->acctNo != no && p!= NULL){
+	while (p->acctNo != no && p!= NULL){  //  look for the acct
 		p = p->next;
 		if (p == NULL) break;
 	}
-	if (p == NULL){
+	if (p == NULL){  //  if null, the list could not find it
 		cout << "Account not found." << endl;
+	}
+	else{  //  if they could, then print
+		cout << p->name << ", your balance is " << p->balance << endl;
 	}
 }
 
+void ORDERED_LIST::deposit(){
+	int no;
+	float amount;
+	node *p = list;  //  p is a pointer of type node that is equal to list
+	cout << "Enter your account number:  ";
+	cin >> no; 
+	cout << endl;
+	while (p->acctNo != no && p != NULL){  //  look for the acct
+		p = p->next;
+		if (p == NULL) break;
+	}
+	if (p == NULL){  //  if null the list could not find it
+		cout << "Account not found." << endl;
+	}
+	else{  //  if they can find it
+		cout << p->name << " how much would you like to deposit?  ";
+		cin >> amount;  //  ask for deposit ammount
+		cout << endl;
+		p->balance = p->balance + amount;  //  calculate
+		cout << p->name << " your new balance is " << p->balance << endl;  //  print
+	}
+}
+
+void ORDERED_LIST::withdraw(){
+	int no;
+	float amount;
+	node *p = list;  //  p is a pointer of type node that is equal to list
+	cout << "Enter your account number:  ";
+	cin >> no;
+	cout << endl;
+	while (p->acctNo != no && p != NULL){  //  look for the acct
+		p = p->next;
+		if (p == NULL) break;
+	}
+	if (p == NULL){  //  if null then we couldn't find it
+		cout << "Account not found." << endl;
+	}
+	else{  //  else then we did
+		cout << p->name << " how much would you like to withdraw?  ";
+		cin >> amount;  //  ask for withdraw amount
+		cout << endl;
+		p->balance = p->balance - amount;  //  calculate
+		cout << p->name << " your new balance is " << p->balance << endl;  //  print
+	}
+}
 
 void ORDERED_LIST::display(){
 	node *p = list;  //  make a new key copy
@@ -96,6 +147,29 @@ void ORDERED_LIST::display(){
 		p = p->next;  //  next door
 	}
 	cout << "NULL" << endl;
+}
+
+void ORDERED_LIST::close(){
+	node *d = list;  //  d(elete) and follow are pointers of type node 
+	node *follow = list;
+	int no;
+	cout << "Enter your account number:  ";
+	cin >> no;  //  find the acc and delete it if you can't find it go back
+	cout << endl;
+	while (d->acctNo != no && d != NULL){
+		follow = d;
+		d = d->next;
+		if (d == NULL) break;
+	}
+	if (d == NULL){
+
+		cout << "Account not found." << endl;
+	}
+	else{
+		follow->next = d->next;  //  set the preceding pointer equal to what it's replacing
+		cout << d->name << " , we closed your account." << endl;
+		delete d;  //  delete
+	}
 }
 
 #endif
