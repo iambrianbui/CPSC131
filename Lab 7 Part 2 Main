@@ -1,0 +1,37 @@
+/*
+CPSC131 Lab 7 Part 2
+Created by: Brian Bui
+Created on:  19 October 2016
+Created on:  19 October 2016
+
+This program will show a check in queue and process it.
+
+*/
+
+#include<iostream>  //  standard
+#include<fstream>  //  import files
+#include<string>  //  string
+#include "SJF.h"  //  I MAD ETHIS
+#include<ctime>  //  time
+
+
+using namespace std;  // std
+
+int main(){
+	SHORT_LIST s;  //  create class s
+	time_t p;  //  time
+
+
+	s.import("signup.txt");  //  import from signup.txt
+	s.display();  //  display
+	while (!s.emptyQueue()){
+		s.deleteNext();  //  next person in line
+	}
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+
+
+}
