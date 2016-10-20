@@ -1,0 +1,102 @@
+#ifndef SJF  //  if sjf is not defined
+#define SJF  //  define it
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+
+class SHORT_LIST{  //  create class SHORT_LIST
+private:  struct node{  //  node stuff
+	string name;  
+	int time;
+	node *next;  //  bring me to the next room
+};
+		  node *front, *rear;  //  initialize front node and rear node
+public:  SHORT_LIST();  //  constructor sets list to null
+		 void import(string);
+		 void insert(string, int);
+		 void display();
+		 void deleteNext();  //  push T
+
+};
+
+SHORT_LIST::SHORT_LIST(){
+	front = NULL; rear = NULL;  //  set to null
+}
+
+void SHORT_LIST::import(string file){
+	fstream f;
+	f.open(file, ios::in);
+	while (!f.eof()){
+		string n;  //  name
+		int t;  //  time
+		f >> n >> t;  //  import into account, name, and balance
+		insert(n, t);  //  call insert function
+	}
+
+}
+
+void SHORT_LIST::insert(string n, int t){
+	node *p;  //  create node p
+	p = new node;  //  p is a new node, so find space for it
+	p->name = n;  //  the name is n
+	p->time = t;
+	p->next = NULL;  //  the new node is in front, so it's pointing to nothing
+	if (front == NULL){  //  if it is the first node
+		front = p;  //  both front and rear point to this
+		rear = p;
+	}
+	else{  //  if else
+		rear->next = p;  //  have the last node point to this
+		rear = p;  //  and change to "last node"
+	}
+}
+
+void SHORT_LIST::display(){
+	node *p;  //  node is a pointer of type p
+	p = front; // p is a copy of the master key
+	if (p != NULL){  //  if p isn't null
+		cout << "The queue is:  ";  
+		while (p != NULL){  //  while p isn't null
+			cout << p->name << ", " << p->time << "-->";  //  display
+			p = p->next;  //  next door
+		}
+		cout << "NULL" << endl;
+	}
+	else  //  if it is then we are done
+		cout << "All served!  :)" << endl;
+}
+
+
+void SHORT_LIST::deleteNext(){  //  NEXT PERSON IN LINE PLEASE
+	int shortestTime = 999;  //  shortest time
+	node *d = front;  //  d is a pointer of type node, and it is a copy of the master key
+	node *f = front;  //  f " " " 
+	if (d != NULL){  //  if d isn't null
+		while (d != NULL){  //  look for the shortest time
+			if (d->time < shortestTime)
+				shortestTime = d->time;
+			d = d->next;
+		}
+		d = front;  //  reset
+		while (d != NULL){  //  find it again
+			if (d->time == shortestTime)
+				break;
+			else {  //  have f follow
+				f = d;
+				d = d->next;
+
+			}
+		}
+		if (d == front){  //  if d is in the front, have a new front
+			front = d->next;
+		}
+		f->next = d->next;  //  push back front
+		delete (d);  //  delete p 
+	}
+	display();  //  display
+}
+
+#endif 
