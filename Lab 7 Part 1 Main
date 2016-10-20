@@ -1,0 +1,87 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  17 October 2016
+Last Edited:  17 October 2016
+
+This program will import and modify a text file.
+*/
+
+#include<iostream>
+#include<fstream>
+#include<string>
+#include "ORDER.h"
+#include<ctime>
+
+char cont();  //  continue function
+
+int main(){
+	ORDERED_LIST o;  //  o is a class
+	int choice = 0;  //  choice
+	time_t p;  //  time
+	char yn = 'y';  //  to continue
+
+
+
+	o.import("proj7.txt");  //  import the text file
+
+	do{  //  do this
+		cin.clear();  //  clear cin
+		cout << "----------MENU----------" << endl;  // menu
+		cout << "1.  Show my balance" << endl <<
+			"2.  Deposit in my account" << endl <<
+			"3.  Withdraw from my account" << endl <<
+			"4.  Show me all" << endl <<
+			"5.  Close my account" << endl;
+		cin >> choice;
+		if (choice == 1){  //  if 1 then show the balance
+			o.showBalance();
+			cont();  //  call function
+			if (yn == 'N' || yn == 'n')  //  if n then break
+				break;
+		}
+		if (choice == 2){  //  if 2 then go deposit
+			o.deposit();
+			cont();  //  call function
+			if (yn == 'N' || yn == 'n')  //  if n then break
+				break;
+		}
+		if (choice == 3){  //  if 3 then withdraw
+			o.withdraw();
+			cont();  //  call function
+			if (yn == 'N' || yn == 'n')  //  if n then break
+				break;
+
+		}
+		if (choice == 4){  //  if 4 then display
+			o.display();
+			cont();  //  so on and so forth
+			if (yn == 'N' || yn == 'n')
+				break;
+
+		}
+		if (choice == 5){
+			o.close();
+			cont();
+			if (yn == 'N' || yn == 'n')
+				break;
+
+		}
+	} while (choice > 1 || choice < 5);
+
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+}
+
+char cont(){
+	char yn;
+
+	cout << "CONTINUE (y/n)? ";
+	cin >> yn;  //  ask to continue and get input
+	if (yn == 'N' || yn == 'n')  //  if n then return
+		return 'n';
+	else return yn;  //  else just return it
+}
