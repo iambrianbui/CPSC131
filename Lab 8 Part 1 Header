@@ -1,0 +1,94 @@
+#ifndef ORDER  //  if not defined
+#define ORDER  //  then define ORDER
+
+#include <iostream>
+using namespace std;
+
+
+class ORDERED_LIST{
+private:  struct node{  //  node stuffs
+	int num;  // number of type int
+	node *next; //  bring me to the next door
+};
+		  node *list;  //  master key
+public:  ORDERED_LIST();   //  constructor
+		 void getData();
+		 void insert(int);
+		 void display();  //  display linked list
+		 int popData();
+		 bool isEmpty();
+
+
+};
+
+ORDERED_LIST::ORDERED_LIST(){
+	list = NULL;  //  set the master key to null
+}
+
+void ORDERED_LIST::getData(){
+	int value = 0;
+	cout << "Enter a group of positive integer numbers with -1 at the end:  ";
+
+	while (value != -1)
+	{
+		cin >> value;
+		if (value == -1)
+			break;
+		else
+			insert(value);
+	}
+}
+
+void ORDERED_LIST::insert(int no){
+	node *p = list, *q = list, *r;  //  create new copies of keys and nodes
+	r = new node;  //  create a new node, make space for it
+	r->num = no;
+	r->next = NULL;  //  it points to nothing
+	//  find where to put the new node
+
+	while (p != NULL && no > p->num){   //  if p is not null and the new info is greater than p's info
+		q = p;  //  change the chaser
+		p = p->next;  //  go to the next door
+	}
+
+	if (p == list){  //  if x is the first node
+		list = r;  //  make the new node the master ky
+		r->next = p;  //  have p point to this new node
+	}
+
+	else if (p == NULL){  //  if x is the last node
+		q->next = r;  //  put it at the end
+	}
+
+	else {  //  if neither nor
+		r->next = p;  //  put it at the middle
+		q->next = r;
+	}
+}
+
+
+void ORDERED_LIST::display(){
+	node *p = list;  //  make a new key copy
+	cout << '\t';
+	while (p != NULL){  //  while it is pointing to osmething
+		cout << p->num << "->";  //  print the info
+		p = p->next;  //  next door
+	}
+	cout << "NULL" << endl;
+}
+
+int ORDERED_LIST::popData(){
+	int r;
+	node *p = list;
+	r = list->num;
+	list = p->next;
+	delete p;
+	return r;
+}
+
+bool ORDERED_LIST::isEmpty(){
+	if (list == NULL) return true;
+	else return false;
+}
+
+#endif
