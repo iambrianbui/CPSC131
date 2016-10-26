@@ -1,0 +1,63 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  25 October 2016
+Last Edited:  25 October 2016
+
+This program will merge two ordered linked lists.
+
+*/
+
+#include<iostream>
+#include"ORDER.h"
+
+int main(){
+	ORDERED_LIST setA, setB, setAUB;
+	cout << "Enter data for setA:  " << endl;
+	setA.getData();
+	setA.display();
+	cout << "Enter data for setB:  " << endl;
+	setB.getData();
+	setB.display();
+	cout << endl;
+
+	int a; int b;
+	while (!setA.isEmpty() || !setB.isEmpty()){
+
+		if (!setA.isEmpty()){
+			a = setA.popData();
+		}
+		else a = -1;
+		if (!setB.isEmpty()){
+			b = setB.popData();
+		}
+		else b = -1;
+		
+
+		if (a < b){
+			if (a == -1){
+				setAUB.insert(b);
+			}
+			else {
+				setAUB.insert(a);
+				setB.insert(b);
+			}
+		}
+		else if (b < a){
+			if (b == -1){
+				setAUB.insert(a);
+			}
+			else {
+				setAUB.insert(b);
+				setA.insert(a);
+			}
+		}
+		else if (a == b){
+			if (a == -1 && b == -1) break;
+			else setAUB.insert(a);
+		}
+	}
+	cout << "setAUB = " << endl;
+	setAUB.display();
+
+}
