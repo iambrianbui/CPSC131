@@ -29,13 +29,13 @@ void ORDERED_LIST::getData(){
 	int value = 0;
 	cout << "Enter a group of positive integer numbers with -1 at the end:  ";
 
-	while (value != -1)
+	while (value != -1)  //  while value isn't -1
 	{
-		cin >> value;
-		if (value == -1)
+		cin >> value;  //  insert value
+		if (value == -1)  //  if it is -1, break
 			break;
 		else
-			insert(value);
+			insert(value);  //  else, insert
 	}
 }
 
@@ -78,17 +78,17 @@ void ORDERED_LIST::display(){
 }
 
 int ORDERED_LIST::popData(){
-	int r;
-	node *p = list;
-	r = list->num;
-	list = p->next;
-	delete p;
-	return r;
+	int r;  
+	node *p = list;  //  p is a copy of the master key
+	r = list->num;  //  r is now the value of the master key
+	list = p->next;  //  move the master key
+	delete p;  //  delete
+	return r;  //  return the value of r
 }
 
 bool ORDERED_LIST::isEmpty(){
-	if (list == NULL) return true;
-	else return false;
+	if (list == NULL) return true;  //  if the list is NULL then it is empty
+	else return false;  //  else true
 }
 
 #endif
