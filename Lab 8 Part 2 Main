@@ -1,1 +1,232 @@
+#include<fstream>
+#include "ORDER.h"
+#include<ctime>
 
+
+void import(string);
+void displayAllList();
+void redirectShowBalance();
+void redirectDeposit();
+void redirectWithdraw();
+
+
+void getChoice(int&x);
+
+
+ORDERED_LIST zero, one, two, three, four;
+
+
+int main(){
+	import("proj8.txt");
+	int menu;
+	char cont;
+	time_t p;  //  time
+
+
+	do
+	{
+		cout << "----------MENU----------" << endl;  // menu
+		cout << "1.  Show my balance" << endl <<
+			"2.  Deposit in my account" << endl <<
+			"3.  Withdraw from my account" << endl <<
+			"4.  Show me all" << endl;
+		cin >> menu;  //  get choice
+		getChoice(menu);  // make sure it's a number
+		if (menu == 1){
+			redirectShowBalance();  //  call function
+			cout << "CONTINUE (y/n)? ";
+			cin >> cont;  //  get input
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+		if (menu == 2){
+			redirectDeposit();  //  call function
+			cout << "CONTINUE (y/n)? ";
+			cin >> cont;  //  get input
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+		if (menu == 3){
+			redirectWithdraw();  //  call function
+			cout << "CONTINUE (y/n)? ";  
+			cin >> cont;  //  get input
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+		if (menu == 4){
+			displayAllList();  //  call function
+			cout << "CONTINUE (y/n)? ";
+			cin >> cont;  //  get input
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+
+
+
+
+	} while (cont != 'N' || cont != 'n');
+	
+
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+
+	return 0;
+}
+
+
+void import(string file){
+	int hash;
+	fstream f;
+	f.open(file, ios::in);
+	while (!f.eof()){
+		int a;  //  account number
+		string n;  //  name
+		float b;  //  balance
+		f >> a >> n >> b;  //  import into account, name, and balance
+
+
+		hash = a % 5;
+		if (hash == 0){
+			zero.insert(a, n, b);  //  call insert function
+		}
+		if (hash == 1){
+			one.insert(a, n, b);  //  call insert function
+		}
+		if (hash == 2){
+			two.insert(a, n, b);  //  call insert function
+		}
+		if (hash == 3){
+			three.insert(a, n, b);  //  call insert function
+		}
+		if (hash == 4){
+			four.insert(a, n, b);  //  call insert function
+		}
+	}
+
+
+
+
+
+
+
+
+}
+
+
+void displayAllList(){
+	cout << "acct[0] = "; 
+	zero.display();  //  call display function
+	cout << endl;
+
+
+	cout << "acct[1] = ";
+	one.display();  //  call display function
+	cout << endl;
+	
+	cout << "acct[2] = ";
+	two.display();  //  call display function
+	cout << endl;
+
+
+	cout << "acct[3] = ";
+	three.display();  //  call display function
+	cout << endl;
+
+
+	cout << "acct[4] = ";
+	four.display();  //  call display function
+	cout << endl;
+}
+
+
+void redirectShowBalance(){
+	int n, hash;
+	cout << "Enter your account number:  ";
+	cin >> n;  //  ask for acc number
+	cout << endl;
+	hash = n % 5;  //  find which linked list to go to
+	if (hash == 0){
+		zero.showBalance(n);  //  call show balance function
+	}
+	if (hash == 1){
+		one.showBalance(n);  //  call show balance function
+	}
+	if (hash == 2){
+		two.showBalance(n);  //  call show balance function
+	}
+	if (hash == 3){
+		three.showBalance(n);  //  call show balance function
+	}
+	if (hash == 4){
+		four.showBalance(n);  //  call show balance function
+	}
+}
+
+
+void redirectDeposit(){
+	int n, hash;
+	cout << "Enter your account number:  ";
+	cin >> n;  //  ask for acc number
+	cout << endl;
+	hash = n % 5;  //  find which linked list to go to
+	if (hash == 0){
+		zero.deposit(n);  //  call deposit function
+	}
+	if (hash == 1){
+		one.deposit(n);  //  call deposit function
+	}
+	if (hash == 2){
+		two.deposit(n);  //  call deposit function
+	}
+	if (hash == 3){
+		three.deposit(n);  //  call deposit function
+	}
+	if (hash == 4){
+		four.deposit(n);  //  call deposit function
+	}
+
+
+}
+
+
+void redirectWithdraw(){
+	int n, hash;
+	cout << "Enter your account number:  ";
+	cin >> n;  //  ask for acc number
+	cout << endl; 
+	hash = n % 5;  //  find which linked list to go to
+	if (hash == 0){
+		zero.withdraw(n);  //  call withdraw function
+	}
+	if (hash == 1){
+		one.withdraw(n);  //  call withdraw function
+	}
+	if (hash == 2){
+		two.withdraw(n);  //  call withdraw function
+	}
+	if (hash == 3){
+		three.withdraw(n);  //  call withdraw function
+	}
+	if (hash == 4){
+		four.withdraw(n);  //  call withdraw function
+	}
+
+
+}
+
+
+void getChoice(int&x)
+{
+	while (x < 1 || x > 4)  //  if not in between these numbers
+	{
+		while (cin.fail())  //  FAILURE
+		{
+			cin.clear();
+			cin.ignore();
+		}
+		cout << "Invalid input." << endl;
+		cin >> x;
+	}
+}
