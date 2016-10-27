@@ -10,54 +10,63 @@ This program will merge two ordered linked lists.
 
 #include<iostream>
 #include"ORDER.h"
+#include<ctime>
 
 int main(){
-	ORDERED_LIST setA, setB, setAUB;
-	cout << "Enter data for setA:  " << endl;
-	setA.getData();
-	setA.display();
+	ORDERED_LIST setA, setB, setAUB;  //  create 3 classes
+	time_t p;  //  time
+
+	cout << "Enter data for setA:  " << endl;  
+	setA.getData();  //  get data from set A
+	setA.display();  //  display set A
 	cout << "Enter data for setB:  " << endl;
-	setB.getData();
-	setB.display();
+	setB.getData();  //  get data from set B
+	setB.display();  //  display set B
 	cout << endl;
 
 	int a; int b;
-	while (!setA.isEmpty() || !setB.isEmpty()){
+	while (!setA.isEmpty() || !setB.isEmpty()){  //  while both sets are not empty
 
-		if (!setA.isEmpty()){
+		if (!setA.isEmpty()){  //  if set a is not empty, pop
 			a = setA.popData();
 		}
-		else a = -1;
-		if (!setB.isEmpty()){
-			b = setB.popData();
-		}
-		else b = -1;
+		else a = -1;  //  else -1
+		if (!setB.isEmpty()){  //  if set b is not empty, pop
+			b = setB.popData(); 
+		} 
+		else b = -1;  //  else -1
 		
 
-		if (a < b){
-			if (a == -1){
-				setAUB.insert(b);
+		if (a < b){  // if a is less than b
+			if (a == -1){  //  BUT IF A IS NEGATIVE 1, IT MUST BE EMPTY SO
+				setAUB.insert(b);  //  push b
 			}
 			else {
-				setAUB.insert(a);
-				setB.insert(b);
+				setAUB.insert(a);  //  push a
+				setB.insert(b);  //  give b back
 			}
 		}
-		else if (b < a){
-			if (b == -1){
-				setAUB.insert(a);
+		else if (b < a){  //  if b is less than b
+			if (b == -1){  //  BUT IF B IS NEGATIVE 1, IT MUST BE EMPTY SO
+				setAUB.insert(a);  //  push b
 			}
 			else {
-				setAUB.insert(b);
-				setA.insert(a);
+				setAUB.insert(b);  //  push b
+				setA.insert(a);  //  give a back
 			}
 		}
-		else if (a == b){
-			if (a == -1 && b == -1) break;
-			else setAUB.insert(a);
+		else if (a == b){  //  if both are equal
+			if (a == -1 && b == -1) break;  // IF BOTH ARE -1 THEY ARE BOTH EMPTY
+			else setAUB.insert(a);  //  else just push one
+
 		}
 	}
 	cout << "setAUB = " << endl;
-	setAUB.display();
+	setAUB.display();  //  display
 
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+
+	return 0;
 }
