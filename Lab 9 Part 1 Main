@@ -1,0 +1,40 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  6 November 2016
+Last edited:  6 November 2016
+
+This program will insert data into a Binary Search Tree.
+
+
+*/
+
+#include <iostream>
+#include <string>
+#include "BSTree.h"
+#include<ctime>
+
+using namespace std;
+
+int main(){
+	time_t p;  //  time
+
+	BST b;  //  class 
+	string Months[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };  //  months
+
+	for (int i = 0; i < 12; i++){  //  for loop to insert months into tree
+		b.insert(Months[i]);
+	}
+	b.displayInorder();  //  display inorder
+	cout << endl;
+	b.displayPostorder();  //  display postorder
+	cout << endl;
+	b.displayPreorder();  //  display preorder
+	cout << endl;
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+
+}
