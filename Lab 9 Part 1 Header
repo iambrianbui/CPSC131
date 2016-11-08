@@ -1,0 +1,112 @@
+#ifndef BSTree
+#define BSTree
+
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+class BST{
+private:  struct node{
+	string word;  //  gimme the word
+	node *left;  //  left child
+	node *right;  //  right child
+};
+		  node *root;  //  root node
+
+public:  BST();  //  constructor
+		 void insert(node(*&), string);  //  insert the node
+		 void displayInorder(node*);  //  display the tree inorder
+		 void displayPostorder(node*);  //  display the tree postorder
+		 void displayPreorder(node*);  //  display the tree preorder
+
+		 //  dummy functions
+		 void insert(string);  
+		 void displayInorder();
+		 void displayPostorder();
+		 void displayPreorder();
+
+
+}; 
+
+
+BST::BST(){  //  set root to null
+	root = NULL;
+}
+
+void BST::insert(node(*&leaf), string month){  //   insert nodes
+
+
+	if (leaf == NULL){  //  if the leaf has nothing in it
+		leaf = new node;  //  create enough memory for a leaf
+		leaf->word = month;  //  the word is the month
+		leaf->left = leaf->right = NULL;  //  it has no children
+	}
+	else if ((int)month[0] < (int)leaf->word[0])  //  but if it is occupied
+		insert(leaf->left, month);  //  go to the left if it is smaller
+
+	else if ((int)month[0] > (int)leaf->word[0])  // but if it is occupied
+		insert(leaf->right, month);  //  go to the right if it is bigger
+	
+	else if ((int)month[0] == (int)leaf->word[0]){  //T-T-T--TTIE BREAKER
+		if ((int)month[1] < (int)leaf->word[1]) 
+			insert(leaf->left, month);  //  go to the left if it is smaller
+		
+		else if ((int)month[1] > (int)leaf->word[1])  
+			insert(leaf->right, month);  //  go to the right if it is bigger
+	
+		else if ((int)month[1] == (int)leaf->word[1]){  //T-T-T--TTIE BREAKER, CURSE YOU JUNE JULY MAY MARCH
+			if ((int)month[2] < (int)leaf->word[2])	
+				insert(leaf->left, month);  //  go to the left if it is smaller
+			
+			else if ((int)month[2] > (int)leaf->word[2])
+				insert(leaf->right, month);  //  go to the right if it is bigger
+		}
+	}
+}
+
+void BST::displayInorder(node *leaf){  //  display inorder
+	if (leaf != NULL){  //  while not null
+		displayInorder(leaf->left);  //  L
+		cout << leaf->word << "\t"; //  P
+		displayInorder(leaf->right);  //  R
+	}
+}
+
+void BST::displayPostorder(node *leaf){  //  display postorder
+	if (leaf != NULL){  //  while not null
+		displayPostorder(leaf->left);  //  L
+		displayPostorder(leaf->right);  //  R
+		cout << leaf->word << "\t"; //  P
+
+	}
+}
+
+void BST::displayPreorder(node *leaf){  //  display preorder
+	if (leaf != NULL){  //  while not null
+		cout << leaf->word << "\t"; //  P
+		displayPreorder(leaf->left);  //  L
+		displayPreorder(leaf->right);  //  R
+	}
+}
+
+
+//  dummy functions
+void BST::insert(string month){
+	insert(root, month);  //  call insert with root
+}
+
+void BST::displayInorder(){
+	displayInorder(root);  //  call displayInorder with root
+}
+
+void BST::displayPostorder(){
+	displayPostorder(root);  //  call displayPostorder with root
+}
+
+void BST::displayPreorder(){ 
+	displayPreorder(root);  //  call displayPreorder with root
+}
+
+
+#endif
