@@ -1,0 +1,43 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  9 November 2016
+Last edited:  9 November 2016
+
+This program will store the name and number of days in each month.
+
+*/
+
+#include<iostream>
+#include<string>
+#include "BSTree.h"
+#include<ctime>
+
+
+
+using namespace std;
+
+int main(){
+	BST b;  //  create class b
+	time_t p;  //  time
+
+	b.import("proj10.txt");  //  import
+	b.displayInorder();  //  display in alphabetical order
+	cout << endl;
+	b.displayLeaves();  //  display the leaves
+	cout << endl;
+	b.displayParentsofTwo();  //  display the parents with two children
+	cout << endl;
+	b.displayParentsofOne();  //  display the parents with one child
+	cout << endl;
+	b.findMonth();  //  find the month
+	cout << endl;
+	b.countNodes();  //  count the months
+	cout << endl;
+	b.treeHeight();  //  how tall is the tree
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+}
