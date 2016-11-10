@@ -1,0 +1,175 @@
+#ifndef BSTree
+#define BSTree
+
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<algorithm>
+
+using namespace std;
+
+class BST{
+private:  struct node{
+	char name[20];  //  gimme the name
+	int no;
+	double balance;
+	node *left;  //  left child
+	node *right;  //  right child
+};
+		  node *root;  //  root node
+
+public:  BST();  //  constructor
+		 void import(string);
+		 void insert(node(*&), int, char[], double);  //  insert the node
+		 void displayInorder(node*);  //  display the tree inorder
+		 bool deposit(node*, int, bool&);  //  find the acc and manip
+		 bool withdraw(node*, int, bool&);  //  find the acc and manip
+		 bool seeBalance(node*, int, bool&);  //   find the acc and show balance
+
+
+		 //  dummy functions
+		 void insert(int, char[], double);
+		 void displayInorder();
+		 void deposit();
+		 void withdraw();
+		 void seeBalance(); 
+
+
+};
+
+
+BST::BST(){  //  set root to null
+	root = NULL;
+}
+
+void BST::import(string filename){
+	fstream f; 
+	f.open(filename, ios::in);  //  open the file
+	while (!f.eof()){  //  while not end of file
+		int a;
+		char n[20];
+		double b;
+		char buffer[2];
+
+		f >> a;  //  insert the account number
+		f.get(buffer,2);  //  buffer the \t
+		f.get(n, 20, '/');  //  get the name
+		f.get(buffer, 2);  //   buffer
+		f >> b;  //  get the balance
+		insert(a, n, b);  // call dummy
+	}
+	f.close();  //  CLOSE THE FILE
+}
+
+void BST::insert(node(*&leaf), int accNo, char name[], double balance){  //   insert nodes
+
+
+	if (leaf == NULL){  //  if the leaf has nothing in it
+		leaf = new node;  //  create enough memory for a leaf
+		leaf->no = accNo;
+		for (int i = 0; i < 20; i++){
+			leaf->name[i] = name[i];  //  the word is the month
+		}
+		leaf->balance = balance;
+		leaf->left = leaf->right = NULL;  //  it has no children
+	}
+	else if (leaf->balance < accNo)  //  but if it is occupied
+		insert(leaf->left, accNo, name, balance);  //  go to the left if it is smaller
+
+	else if (leaf->balance > accNo)  // but if it is occupied
+		insert(leaf->right, accNo, name, balance);  //  go to the right if it is bigger
+}
+
+void BST::displayInorder(node *leaf){  //  display inorder
+	if (leaf != NULL){  //  while not null
+		displayInorder(leaf->left);  //  L
+		cout << leaf->no << "\t" << leaf->name << "\t" << leaf->balance << endl; //  P
+		displayInorder(leaf->right);  //  R
+	}
+}
+
+bool BST::withdraw(node* leaf, int accNo, bool& exist){
+	if (leaf != NULL){  //  while not null
+		withdraw(leaf->left, accNo, exist);  //  L
+		if (leaf->no == accNo){  //  FOUND IT
+			double moneys;
+			cout << leaf->name << " how much would you like to withdraw?  ";
+			cin >> moneys;  //  ask for how much
+			leaf->balance = leaf->balance - moneys;  //  modify the moneys
+			cout << "Your new balance is now " << leaf->balance << "." << endl;
+			return true;
+		}
+		withdraw(leaf->right, accNo, exist);  //  R
+	}
+	else return false;  // just kidding :c
+}
+
+bool BST::deposit(node* leaf, int accNo, bool& exist){
+	if (leaf != NULL){  //  while not null
+		deposit(leaf->left, accNo, exist);  //  L
+		if (leaf->no == accNo){  //  FOUND IT
+			double moneys;
+			cout << leaf->name << " how much would you like to deposit?  ";
+			cin >> moneys;  //  ask for how much
+			leaf->balance = leaf->balance + moneys;  //  modify the moneys
+			cout << "Your new balance is now " << leaf->balance << "." << endl;
+			return true;
+		}
+		deposit(leaf->right, accNo, exist);  //  R
+	}
+	else return false;  //  just kidding :c
+}
+
+bool BST::seeBalance(node* leaf, int accNo, bool& exist){
+	if (leaf != NULL){  //  while not null
+		seeBalance(leaf->left, accNo, exist);  //  L
+		if (leaf->no == accNo){  //  FOUND IT
+			cout << leaf->name << " you have $" << leaf->balance << "." << endl;
+			return true;
+		}
+		seeBalance(leaf->right, accNo, exist);  //  R
+	}
+	else return false;  //  just kidding
+}
+
+
+
+//  dummy functions
+void BST::insert(int accNo, char name[], double balance){
+	insert(root, accNo, name, balance);  //  call insert with root
+}
+
+void BST::displayInorder(){
+	cout << "ID \t NAME \t BALANCE" << endl;
+	cout << "----------------------------------------" << endl;
+	displayInorder(root);  //  call displayInorder with root
+}
+
+void BST::deposit(){
+	int accNo;
+	bool exist = false;
+	cout << "Enter account number:  ";
+	cin >> accNo;
+	exist = deposit(root, accNo, exist);  //  call findMonth with root and the month value
+	if (exist == false) cout << "The account number does not exist." << endl;
+}
+
+void BST::withdraw(){
+	int accNo;
+	bool exist = false;
+	cout << "Enter account number:  ";
+	cin >> accNo;
+	exist = withdraw(root, accNo, exist);  //  call findMonth with root and the month value
+	if (exist == false) cout << "The account number does not exist." << endl;
+}
+
+void BST::seeBalance (){
+	int accNo;
+	bool exist = false;
+	cout << "Enter account number:  ";
+	cin >> accNo;
+	exist =  seeBalance(root, accNo, exist);  //  call findMonth with root and the month value
+	if (exist == false) cout << "The account number does not exist." << endl;
+}
+
+#endif
