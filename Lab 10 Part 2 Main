@@ -1,0 +1,59 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  9 November 2016
+Last edited:  9 November 2016
+
+This program will copy data into a BST and traverse and manipulate the BST.
+*/
+
+#include<iostream>
+#include"BSTree.h"
+#include<ctime>
+
+using namespace std;
+
+int main(){
+	BST b;
+	b.import("data.txt");
+
+	char menu, cont;
+	time_t p; // time
+	b.displayInorder();
+
+	do{
+		cout << "Enter a choice(a-c):  ";  //  prompt user for choice
+		cin >> menu;
+		if (menu == 'a' || menu == 'A'){  //  if a
+			b.deposit();  //  deposit
+			cout << "CONTINUE?(y/n)?  ";  //  prompt to cont
+			cin >> cont;
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+
+		if (menu == 'b' || menu == 'B'){  //  if b
+			b.withdraw();  //  withdraw
+			cout << "CONTINUE?(y/n)?  ";  //  prompt to cont
+			cin >> cont;
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+
+		if (menu == 'c' || menu == 'C'){  //  if c
+			b.seeBalance();  //  withdraw
+			cout << "CONTINUE?(y/n)?  ";  //  prompt to cont
+			cin >> cont;
+			if (cont == 'N' || cont == 'n')  //  if n/N, we done here
+				break;
+		}
+	} while (cont != 'N' || cont != 'n');
+
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+
+
+}
