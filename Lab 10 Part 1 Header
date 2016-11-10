@@ -1,0 +1,194 @@
+#ifndef BSTree
+#define BSTree
+
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<algorithm>
+
+using namespace std;
+
+class BST{
+private:  struct node{
+	string word;  //  gimme the word
+	int days;
+	node *left;  //  left child
+	node *right;  //  right child
+};
+		  node *root;  //  root node
+
+public:  BST();  //  constructor
+		 void import(string);
+		 void insert(node(*&), string, int);  //  insert the node
+		 void displayInorder(node*);  //  display the tree inorder
+		 void displayLeaves(node*);   //  display the leaves of the tree
+		 void displayParentsofTwo(node*);  //  display the nodes with two children
+		 void displayParentsofOne(node*);  //  display the nodes with one child
+		 void findMonth(node*, string);  //  find the month
+		 int countNodes(node*);  //  count how many nodes are in the tree
+		 int treeHeight(node*);  //  see how tall the tree is
+
+
+		 //  dummy functions
+		 void insert(string, int);
+		 void displayInorder();
+		 void displayLeaves();
+		 void displayParentsofTwo();
+		 void displayParentsofOne();
+		 void countNodes();
+		 void treeHeight();
+		 void findMonth();
+
+
+};
+
+
+BST::BST(){  //  set root to null
+	root = NULL;
+}
+
+void BST::import(string filename){
+	fstream f;
+	f.open(filename, ios::in);
+	while (!f.eof()){
+		int d;
+		string m;
+		f >> m >> d;
+		insert(m, d);
+		}
+}
+
+void BST::insert(node(*&leaf), string month, int days){  //   insert nodes
+
+
+	if (leaf == NULL){  //  if the leaf has nothing in it
+		leaf = new node;  //  create enough memory for a leaf
+		leaf->word = month;  //  the word is the month
+		leaf->days = days;
+		leaf->left = leaf->right = NULL;  //  it has no children
+	}
+	else if ((int)month[0] < (int)leaf->word[0])  //  but if it is occupied
+		insert(leaf->left, month, days);  //  go to the left if it is smaller
+
+	else if ((int)month[0] > (int)leaf->word[0])  // but if it is occupied
+		insert(leaf->right, month, days);  //  go to the right if it is bigger
+
+	else if ((int)month[0] == (int)leaf->word[0]){  //T-T-T--TTIE BREAKER
+		if ((int)month[1] < (int)leaf->word[1])
+			insert(leaf->left, month, days);  //  go to the left if it is smaller
+
+		else if ((int)month[1] > (int)leaf->word[1])
+			insert(leaf->right, month, days);  //  go to the right if it is bigger
+
+		else if ((int)month[1] == (int)leaf->word[1]){  //T-T-T--TTIE BREAKER, CURSE YOU JUNE JULY MAY MARCH
+			if ((int)month[2] < (int)leaf->word[2])
+				insert(leaf->left, month, days);  //  go to the left if it is smaller
+
+			else if ((int)month[2] > (int)leaf->word[2])
+				insert(leaf->right, month, days);  //  go to the right if it is bigger
+		}
+	}
+}
+
+void BST::displayInorder(node *leaf){  //  display inorder
+	if (leaf != NULL){  //  while not null
+		displayInorder(leaf->left);  //  L
+		cout << leaf->word << "\t" <<leaf->days << endl; //  P
+		displayInorder(leaf->right);  //  R
+	}
+}
+
+void BST::displayLeaves(node *leaf){
+	if (leaf != NULL){  //  while not null
+		displayLeaves(leaf->left);  //  L
+		if ((leaf->left == NULL) && (leaf->right == NULL)){
+			cout << leaf->word << "\t" << leaf->days << endl; //  P
+		}
+		displayLeaves(leaf->right);  //  R
+	}
+}
+
+void BST::displayParentsofTwo(node *leaf){
+	if (leaf != NULL){  //  while not null
+		displayParentsofTwo(leaf->left);  //  L
+		if ((leaf->left != NULL) && (leaf->right != NULL)){
+			cout << leaf->word << "\t" << leaf->days << endl; //  P
+		}
+		displayParentsofTwo(leaf->right);  //  R
+	}
+}
+
+void BST::displayParentsofOne(node *leaf){
+	if (leaf != NULL){  //  while not null
+		displayParentsofOne(leaf->left);  //  L
+		if ((leaf->left != NULL) && (leaf->right == NULL)){  //  if the left is has a child and the right doesn't
+			cout << leaf->word << "\t" << leaf->days << endl; //  P
+		}
+		if ((leaf->left == NULL) && (leaf->right != NULL)){  //  vice versa
+			cout << leaf->word << "\t" << leaf->days << endl; //  P
+		}
+		displayParentsofOne(leaf->right);  //  R
+	}
+}
+
+void BST::findMonth(node* leaf, string month){
+	if (leaf != NULL){  //  while not null
+		findMonth(leaf->left, month);  //  L
+		if (leaf->word == month){
+			cout << "There are " << leaf->days << " days in " << month << "." << endl;
+		}
+		findMonth(leaf->right, month);  //  R
+	}
+}
+
+
+int BST::countNodes(node *leaf){  //  display inorder
+	if (leaf == NULL) return 0;
+	else return 1 + countNodes(leaf->left) + countNodes(leaf->right);
+}
+
+int BST::treeHeight(node *leaf){  //  display inorder
+	if (leaf == NULL) return 0;
+	else return 1 + max(treeHeight(leaf->left), treeHeight(leaf->right));
+}
+
+//  dummy functions
+void BST::insert(string month, int days){
+	insert(root, month, days);  //  call insert with root
+}
+
+void BST::displayInorder(){
+	displayInorder(root);  //  call displayInorder with root
+}
+
+void BST::displayLeaves(){
+	displayLeaves(root);  //  call displayInorder with root
+}
+
+void BST::displayParentsofTwo(){
+	displayParentsofTwo(root);  //  call displayParentsofTwo with root
+}
+
+void BST::displayParentsofOne(){
+	displayParentsofOne(root);  //  call displayParentsofOne with root
+}
+
+void BST::findMonth(){
+	string month;
+	cout << "Enter month:  ";
+	cin >> month;
+	findMonth(root, month);  //  call findMonth with root and the month value
+
+}
+
+void BST::countNodes(){
+	int a = countNodes(root);
+	cout << "There are " << a << " nodes.";
+}
+
+void BST::treeHeight(){
+	int a = treeHeight (root);
+	cout << "The tree is " << a << " nodes high." ;
+}
+
+#endif
