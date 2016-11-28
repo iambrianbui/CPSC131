@@ -1,0 +1,104 @@
+#ifndef BSTree
+#define BSTree
+
+#include<iostream>
+#include<string>
+#include<cstring>
+
+using namespace std;
+
+class BST{
+private:  struct node{
+	string word;  //  gimme the word
+	bool forcedLower = false;
+	node *left;  //  left child
+	node *right;  //  right child
+};
+		  node *root;  //  root node
+
+public:  BST();  //  constructor
+		 void import();
+		 void insert(node(*&), string, bool);  //  insert the node
+		 void displayInorder(node*);  //  display the tree inorder
+
+		 //  dummy functions
+		 void insert(string, bool);
+		 void displayInorder();
+
+};
+
+
+BST::BST(){  //  set root to null
+	root = NULL;
+}
+
+void BST::import(){
+	char sentence[80];
+	bool forceLower = false;
+	cout << "Enter a phrase:  ";
+	cin.getline(sentence, 79, '\n');
+	char *token;
+	token = strtok(sentence, ",; ");
+	while (token != NULL){
+		if (isupper(token[0])){
+		_strlwr(token);
+	}
+		insert(token, forceLower);
+		token = strtok(NULL, ",; ");
+	}
+}
+
+void BST::insert(node(*&leaf), string wordd, bool lower){  //   insert nodes
+
+
+	if (leaf == NULL){  //  if the leaf has nothing in it
+		leaf = new node;  //  create enough memory for a leaf
+		leaf->word = wordd;  //  the word is the month
+		leaf->left = leaf->right = NULL;  //  it has no children
+	}
+	else if ((int)wordd[0] < (int)leaf->word[0])  //  but if it is occupied
+		insert(leaf->left, wordd, lower);  //  go to the left if it is smaller
+
+	else if ((int)wordd[0] > (int)leaf->word[0])  // but if it is occupied
+		insert(leaf->right, wordd, lower);  //  go to the right if it is bigger
+
+	else if ((int)wordd[0] == (int)leaf->word[0]){  //T-T-T--TTIE BREAKER
+		if ((int)wordd[1] < (int)leaf->word[1])
+			insert(leaf->left, wordd, lower);  //  go to the left if it is smaller
+
+		else if ((int)wordd[1] > (int)leaf->word[1])
+			insert(leaf->right, wordd, lower);  //  go to the right if it is bigger
+
+		else if ((int)wordd[1] == (int)leaf->word[1]){  //T-T-T--TTIE BREAKER
+			if ((int)wordd[2] < (int)leaf->word[2])
+				insert(leaf->left, wordd, lower);  //  go to the left if it is smaller
+
+			else if ((int)wordd[2] > (int)leaf->word[2])
+				insert(leaf->right, wordd, lower);  //  go to the right if it is bigger
+		}
+	}
+}
+
+void BST::displayInorder(node *leaf){  //  display inorder
+	if (leaf != NULL){  //  while not null
+		displayInorder(leaf->left);  //  L
+		if (leaf->forcedLower == true){
+			toupper(leaf->word[0]);
+		}
+		cout << leaf->word << " "; //  P
+		displayInorder(leaf->right);  //  R
+	}
+}
+
+
+//  dummy functions
+void BST::insert(string month, bool lower){
+	insert(root, month, lower);  //  call insert with root
+}
+
+void BST::displayInorder(){
+	cout << "Words in alphabetical order:  ";
+	displayInorder(root);  //  call displayInorder with root
+}
+
+#endif
