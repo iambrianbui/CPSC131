@@ -1,0 +1,41 @@
+/*
+CPSC-131
+
+Created by:  Brian Bui
+Created on:  27 November 2016
+Last edited:  27 November 2016
+
+This program will read a sentence, tokenize it, and insert each word into a BST.  Then it will display all the words in alphabetical order.
+
+*/
+
+#include<iostream>
+#include "BSTree.h"
+#include<ctime>
+
+using namespace std;
+
+int main(){
+
+	char cont;
+	time_t p;
+
+	do{
+		BST b;
+		b.import();
+		b.displayInorder();
+		cout << "\nContinue?  (y/n)  ";
+		cin >> cont; 
+		cin.ignore();
+		cin.clear();
+
+		if (cont == 'N' || cont == 'n')
+			break;
+	} while (cont != 'N' || cont != 'n');
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+	return 0;
+
+}
