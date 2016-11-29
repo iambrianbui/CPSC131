@@ -7,31 +7,33 @@ Last edited:  27 November 2016
 
 This program will read a sentence, tokenize it, and insert each word into a BST.  Then it will display all the words in alphabetical order.
 
+That cap thing took me 4 hours whew
+
 */
 
-#include<iostream>
-#include "BSTree.h"
-#include<ctime>
+#include<iostream>  //  standard
+#include "BSTree.h"  //  I MADE THIS
+#include<ctime>  //  time 
 
 using namespace std;
 
 int main(){
 
-	char cont;
-	time_t p;
+	char cont;  //  to continue
+	time_t p;  //  for the time
 
 	do{
-		BST b;
-		b.import();
-		b.displayInorder();
-		cout << "\nContinue?  (y/n)  ";
-		cin >> cont; 
+		BST b;   //  create an object named b of type BST
+		b.import();  //  import 
+		b.displayInorder();  //  display in order
+		cout << "\nContinue?  (y/n)  ";  //  continue
+		cin >> cont;   //  cin
 		cin.ignore();
 		cin.clear();
 
 		if (cont == 'N' || cont == 'n')
-			break;
-	} while (cont != 'N' || cont != 'n');
+			break;  //  exit
+	} while (cont != 'N' || cont != 'n');  // else loop
 
 	time(&p);  //  find time
 	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
