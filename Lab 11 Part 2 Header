@@ -1,0 +1,131 @@
+#ifndef OPERATOR
+#define OPERATOR
+
+#include<iostream>
+
+using namespace std;
+
+class FRACTION{
+private:  int num, den;  //  numerator and denominator
+public:  void insertFraction(int, int);  //  insert the fractions
+		 friend void operator + (FRACTION, FRACTION);  // +
+		 friend void operator - (FRACTION, FRACTION);  // -
+		 friend void operator * (FRACTION, FRACTION);  // *
+
+};
+
+
+void FRACTION::insertFraction(int x, int y){  //  set numbers
+	num = x;
+	den = y;
+}
+
+
+void operator + (FRACTION a, FRACTION b){
+	FRACTION r;  //  new class fraction
+	int biggerNum;
+
+	cout << a.num << "/" << a.den << " + " << " " << b.num << "/" << b.den << " = ";  //  a1/a2 + b1/b2 = 
+
+	if (a.den == b.den){  //  if the denominator are the same
+		r.num = a.num + b.num;  //  add the numerators
+		r.den = a.den;  //  just need one of them
+		cout << r.num << "/" << r.den << endl;
+	}
+	else {  //  if else, multiply the denominator of A with the num of B and so on
+		if (b.den > a.den)  //  find the bigger number of the two
+			biggerNum = b.den;
+		else if (b.den < a.den)  //  so we can simplify if needed
+			biggerNum = a.den;
+
+		b.num = a.den * b.num;  
+		a.num = b.den * a.num;
+		a.den = a.den * b.den;
+
+		//  set the new denominator to r
+		r.den = b.den = a.den;
+		//  find the new numerator
+		r.num = a.num + b.num;
+
+
+		for (int i = 1; i < biggerNum; i++){  //  simplify
+			if ((r.num % i == 0) && (r.den % i == 0)){  //  if you can divide w/o remainders, then do it!
+				r.num = r.num / i;  //  set new values
+				r.den = r.den / i;
+				i = 1;  //  take it from the top
+			}
+		}
+//   print
+		cout << r.num << "/" << r.den << endl;
+	}
+}
+
+void operator - (FRACTION a, FRACTION b){
+	FRACTION r;  //  new class fraction
+	int biggerNum;
+
+	cout << a.num << "/" << a.den << " - " << " " << b.num << "/" << b.den << " = ";  //  a1/a2 - b1/b2 = 
+
+	if (a.den == b.den){  //  if the denominator are the same
+		r.num = a.num - b.num;  //  subtract the numerators
+		r.den = a.den;  //  just need one of them
+		cout << r.num << "/" << r.den << endl;
+	}
+	else {  //  if else, multiply the denominator of A with the num of B and so on
+		if (b.den > a.den)  //  find the bigger number of the two
+			biggerNum = b.den;
+		else if (b.den < a.den)  //  so we can simplify if needed
+			biggerNum = a.den;
+
+		b.num = a.den * b.num;
+		a.num = b.den * a.num;
+		a.den = a.den * b.den;
+
+		//  set the new denominator to r
+		r.den = b.den = a.den;
+		//  find the new numerator
+		r.num = a.num - b.num;
+
+
+		for (int i = 1; i < biggerNum; i++){  //  simplify
+			if ((r.num % i == 0) && (r.den % i == 0)){  //  if you can divide w/o remainders, then do it!
+				r.num = r.num / i;  //  set new values
+				r.den = r.den / i;
+				i = 1;  //  take it from the top
+			}
+		}
+		//   print
+		cout << r.num << "/" << r.den << endl;
+	}
+}
+
+void operator * (FRACTION a, FRACTION b){
+	FRACTION r;  //  new class fraction
+	int biggerNum;
+
+	cout << a.num << "/" << a.den << " * " << " " << b.num << "/" << b.den << " = ";  //  a1/a2 * b1/b2 = 
+
+	if (b.den > a.den)  //  find the bigger number of the two
+		biggerNum = b.den;
+	else  //  so we can simplify if needed
+		biggerNum = a.den;
+
+
+	//  set the new denominator to r
+	r.den = b.den * a.den;
+	//  find the new numerator
+	r.num = a.num * b.num;
+
+
+	for (int i = 1; i < biggerNum; i++){  //  simplify
+		if ((r.num % i == 0) && (r.den % i == 0)){  //  if you can divide w/o remainders, then do it!
+			r.num = r.num / i;  //  set new values
+			r.den = r.den / i;
+			i = 1;  //  take it from the top
+		}
+	}
+	//   print
+	cout << r.num << "/" << r.den << endl;
+}
+
+#endif
