@@ -10,19 +10,19 @@ using namespace std;
 class BST{
 private:  struct node{
 	string word;  //  gimme the word
-	bool forcedLower = false;
+	bool forcedLower = false;  //  to bring it back to normal
 	node *left;  //  left child
 	node *right;  //  right child
 };
 		  node *root;  //  root node
 
 public:  BST();  //  constructor
-		 void import();
-		 void insert(node(*&), string, bool);  //  insert the node
+		 void import();  //  put the words in
+		 void insert(node(*&), string, bool&);  //  insert the node
 		 void displayInorder(node*);  //  display the tree inorder
 
 		 //  dummy functions
-		 void insert(string, bool);
+		 void insert(string, bool&);
 		 void displayInorder();
 
 };
@@ -33,28 +33,39 @@ BST::BST(){  //  set root to null
 }
 
 void BST::import(){
-	char sentence[80];
-	bool forceLower = false;
+	int i = 0;
+	char sentence[80];  //  have the sentence
 	cout << "Enter a phrase:  ";
-	cin.getline(sentence, 79, '\n');
-	char *token;
-	token = strtok(sentence, ",; ");
-	while (token != NULL){
-		if (isupper(token[0])){
-		_strlwr(token);
+	cin.getline(sentence, 79, '\n');  //  prompt user for a sentence
+	char *token, *temp;  //  create a pointer of type char
+	temp = &sentence[0];  //  need a temp to chase
+	token = strtok(sentence, ",; ");  //  move the pointer to stop at these things
+	while (token != NULL){  //  if there is something
+		bool forceLower = false;  //  default
+
+		while (temp != token && temp!=NULL){  //  while the chaser hasn't caught up or isn't null
+			i++;  //  increase i
+			temp++;  //  start chasing
+		}
+
+		if (isupper(sentence[i])){  //		check if the first letter is upper
+		forceLower = true;  //  if it is, then say it is
+		_strlwr(token);  //  and thne lower it	
 	}
+
 		insert(token, forceLower);
 		token = strtok(NULL, ",; ");
 	}
 }
 
-void BST::insert(node(*&leaf), string wordd, bool lower){  //   insert nodes
+void BST::insert(node(*&leaf), string wordd, bool& lower){  //   insert nodes
 
 
 	if (leaf == NULL){  //  if the leaf has nothing in it
 		leaf = new node;  //  create enough memory for a leaf
 		leaf->word = wordd;  //  the word is the month
 		leaf->left = leaf->right = NULL;  //  it has no children
+		leaf->forcedLower = lower;
 	}
 	else if ((int)wordd[0] < (int)leaf->word[0])  //  but if it is occupied
 		insert(leaf->left, wordd, lower);  //  go to the left if it is smaller
@@ -83,7 +94,7 @@ void BST::displayInorder(node *leaf){  //  display inorder
 	if (leaf != NULL){  //  while not null
 		displayInorder(leaf->left);  //  L
 		if (leaf->forcedLower == true){
-			toupper(leaf->word[0]);
+			leaf->word[0] = toupper(leaf->word[0]);
 		}
 		cout << leaf->word << " "; //  P
 		displayInorder(leaf->right);  //  R
@@ -92,7 +103,7 @@ void BST::displayInorder(node *leaf){  //  display inorder
 
 
 //  dummy functions
-void BST::insert(string month, bool lower){
+void BST::insert(string month, bool& lower){
 	insert(root, month, lower);  //  call insert with root
 }
 
