@@ -1,0 +1,63 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  27 November 2016
+Last edited:  28 November 2016
+
+*/
+
+#include<iostream>  //  iostream
+#include "OPERATOR.h"  //  i MADE THIS
+#include<ctime>  //  time 
+
+
+using namespace std;
+
+int main(){
+	char choice, div;  //  choice and division sign
+	time_t p;  //  for the time
+
+	do{
+		FRACTION A, B;  //  create two classes of type Fraction
+		int x, y;
+		cout << "Enter a fraction:  ";  //  prompt
+		cin >> x >> div >> y;  //  HO MAN THAT DIVISION SIGN
+		while (y == 0){
+			cout << "Did you just try to divide by zero...?  Enter a new denominator.  ";  //  NO DIVIDING BY ZERO
+			cin >> y;  //  try again
+		}
+		A.insertFraction(x, y);  //  insert fraction A
+		cout << "Enter another fraction:  ";
+		cin >> x >> div >> y;
+		while (y == 0){
+			cout << "Did you just try to divide by zero...?  Enter a new denominator.  ";
+			cin >> y;
+		}
+		B.insertFraction(x, y);  //  insert fraction B
+		cout << "Enter an operation (+,-,*):  ";  // prompt operation
+		cin >> choice;
+		switch (choice){
+		case '+':  A + B;  //  overload
+			break;
+		case '-': A - B;  //  overload
+			break;
+		case '*': A*B;  //  lose 2 mana crystals next turn
+			break;
+		default: break;  //  break
+		}
+		cout << "\nContinue?  (y/n)  ";  //  cont?
+		cin >> choice;
+		cin.ignore();
+		cin.clear();
+
+		if (choice == 'N' || choice == 'n')
+			break;  //  break
+	} while (choice != 'N' || choice != 'n'); //  yes
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+
+
+
+	return 0;
+}
