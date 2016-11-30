@@ -1,0 +1,39 @@
+#include<iostream>
+#include "COORD.h"
+
+using namespace std;
+
+int main(){
+	POINT a, b;
+	int x, y;
+	cout << "Enter the coordinates of point A:  ";
+	cin >> x >> y;
+	a.insertCoordinates(x, y);
+	cout << "Enter the coordinates of point B:  ";
+	cin >> x >> y;
+	b.insertCoordinates(x, y);
+
+	a + b;
+	a - b;
+
+	cout << "Enter a constant:  ";
+	cin >> x;
+	cout << x << "* A";
+	a.displayCoordinates();
+	cout <<"= ";
+	a*x;
+	cout << x << "* B";
+	b.displayCoordinates();
+	cout << "= ";
+	b*x;
+
+	float distance;
+	distance = midPoint(a, b);
+	cout << "The distance from A";
+	a.displayCoordinates();
+	cout << "to B";
+	b.displayCoordinates();
+	cout << "is " << distance << endl;
+
+	return 0;
+}
