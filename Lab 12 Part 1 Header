@@ -8,57 +8,57 @@ using namespace std;
 
 class POINT{
 private:
-	int x, y;
+	int x, y;  //  x and y coordinates
 public:
-	void insertCoordinates(int, int);
-	void displayCoordinates();
-	friend void operator + (POINT, POINT);
-	friend void operator - (POINT, POINT);
-	friend void operator * (POINT, int);
-	friend float midPoint(POINT, POINT);
+	void insertCoordinates(int, int); //  insert the coordinates into the object
+	void displayCoordinates();  //  display the coordinates
+	friend void operator + (POINT, POINT);  //  add the points together
+	friend void operator - (POINT, POINT);  //  subtract the points from each other
+	friend void operator * (POINT, int);  //  multiply the point with a constant
+	friend float midPoint(POINT, POINT);  //  find the midpoint of the two points
 
 };
 
-void POINT::insertCoordinates(int a, int b){
+void POINT::insertCoordinates(int a, int b){  //  have whatever x and y enters become the point
 	x = a;
 	y = b;
 }
 
-void POINT::displayCoordinates(){
+void POINT::displayCoordinates(){  //  display
 	cout << "(" << x << ", " << y << ") ";
 }
 
 void operator + (POINT a, POINT b){
-	POINT c;
-	c.x = a.x + b.x;
-	c.y = a.y + b.y;
+	POINT c;  //  point c
+	c.x = a.x + b.x;  //  the value of the new x is x1+x2
+	c.y = a.y + b.y;  //  the value of the new y is y1+y2  
 
-	cout << "A(" << a.x << ", " << a.y << ") + B(" << b.x << ", " << b.y << ") = C(" << c.x << ", " << c.y << ")" << endl;
+	cout << "A(" << a.x << ", " << a.y << ") + B(" << b.x << ", " << b.y << ") = C(" << c.x << ", " << c.y << ")" << endl;   //  display
 
 }
 
 void operator - (POINT a, POINT b){
-	POINT c;
-	c.x = a.x - b.x;
-	c.y = a.y - b.y;
+	POINT c;  //  point c
+	c.x = a.x - b.x;  //  the value of the new x is x2-x1
+	c.y = a.y - b.y;  //  the value of the new y is y2-y1
 
-	cout << "A(" << a.x << ", " << a.y << ") - B(" << b.x << ", " << b.y << ") = C(" << c.x << ", " << c.y << ")" << endl;
+	cout << "A(" << a.x << ", " << a.y << ") - B(" << b.x << ", " << b.y << ") = C(" << c.x << ", " << c.y << ")" << endl;  //  display
 
 }
 
 void operator * (POINT a, int x){
-	POINT c;
-	c.x = x*a.x;
-	c.y = x*a.y;
-	cout << "C(" << c.x << ", " << c.y << ") " << endl;
+	POINT c;  // point c
+	c.x = x*a.x;  //  new x = kx
+	c.y = x*a.y;  //  new y = yx
+	cout << "C(" << c.x << ", " << c.y << ") " << endl;  // display
 }
 
 float midPoint(POINT a, POINT b){
 	float distance;
-	distance = pow((b.x - a.x), 2) + pow((b.y - a.y), 2);
-	distance = sqrt(distance);
+	distance = pow((b.x - a.x), 2) + pow((b.y - a.y), 2);  //  have the (x2-x1)^2+(y2-y1)^2
+	distance = sqrt(distance);  //  get the square root
 
-	return distance;
+	return distance;  //  return the distance
 
 
 }
