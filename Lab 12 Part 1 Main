@@ -1,39 +1,55 @@
+/*
+CPSC-131
+Created by:  Brian Bui
+Created on:  29 November 2016
+Last edited:  30 November 2016
+
+This program will overload operators to add or subtract two points, and multiply a point by a constant.  Then, it will find the distance between the two points.
+
+
+*/
 #include<iostream>
 #include "COORD.h"
+#include<ctime>
 
 using namespace std;
 
 int main(){
-	POINT a, b;
+	POINT a, b;  //  create two objects of POINT
 	int x, y;
-	cout << "Enter the coordinates of point A:  ";
+	time_t p;
+
+	cout << "Enter the coordinates of point A:  ";  //  prompt for point A
 	cin >> x >> y;
 	a.insertCoordinates(x, y);
-	cout << "Enter the coordinates of point B:  ";
+	cout << "Enter the coordinates of point B:  ";  //  prompt for point B
 	cin >> x >> y;
 	b.insertCoordinates(x, y);
 
-	a + b;
-	a - b;
+	a + b;  //  OVEERLOADDDDD
+	a - b;  //  overload
 
 	cout << "Enter a constant:  ";
-	cin >> x;
-	cout << x << "* A";
-	a.displayCoordinates();
+	cin >> x;  //  prompt for constant
+	cout << x << "* A";  //  display
+	a.displayCoordinates();  
 	cout <<"= ";
-	a*x;
-	cout << x << "* B";
+	a*x;  //  overload
+	cout << x << "* B";  //  repeat for b
 	b.displayCoordinates();
 	cout << "= ";
 	b*x;
 
 	float distance;
-	distance = midPoint(a, b);
-	cout << "The distance from A";
+	distance = midPoint(a, b);  //  call on midpoint
+	cout << "The distance from A";  //  display
 	a.displayCoordinates();
 	cout << "to B";
 	b.displayCoordinates();
 	cout << "is " << distance << endl;
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
 
 	return 0;
 }
