@@ -1,0 +1,74 @@
+#ifndef QUEUE  //  if not defined
+#define QUEUE  //  define QUEUE
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class QUEUE_LIST{  //  create class QUEUE_LIST
+private:  struct node{  //  node stuff
+	string info;  //  info here of type T
+	node *next;  //  bring me to the next room
+};
+		  node *front, *rear;  //  initialize front node and rear node
+public:  QUEUE_LIST();  //  constructor to set nodes to node
+		 void pushQueue(string);  //  push T
+		 bool emptyQueue();  //  check if the queue is empty
+		 void displayQueue();
+		 void retrieve(string);
+};
+
+QUEUE_LIST::QUEUE_LIST(){
+	front = NULL; rear = NULL;  //  set to null
+}
+
+void QUEUE_LIST::pushQueue(string x){
+	node *p;  //  create node p
+	p = new node;  //  p is a new node, so find space for it
+	p->info = x;  //  the info inside p is x
+	p->next = NULL;  //  the new node is in front, so it's pointing to nothing
+	if (front == NULL){  //  if it is the first node
+		front = p;  //  both front and rear point to this
+		rear = p;
+	}
+	else{  //  if else
+		rear->next = p;  //  have the last node point to this
+		rear = p;  //  and change to "last node"
+	}
+
+}
+
+bool QUEUE_LIST::emptyQueue(){
+	if (front == NULL) return true;  //  if the front points to NULL it is empty
+	else return false;   //  if else than false
+}
+
+void QUEUE_LIST::displayQueue(){
+	node *p;  //  create p which is type node
+	p = front;  //  p is in the front
+	while (p != NULL){  //  traverse the list
+		cout << p->info << " -> ";  //  display whatever is there
+		p = p->next; 
+	}
+	cout << "NULL" << endl;  //  end
+
+}
+
+void QUEUE_LIST::retrieve(string month){
+	node *p;  //  create p which is type node
+	int comparisons = 1;  //  p is in the front
+	p = front;  //  traverse the list
+	while (p != NULL && p->info != month){  //  display whatever is there
+		p = p->next;  
+		comparisons++;  //  increase the counter
+	}
+	if (p == NULL){
+		cout << "Month not found." << endl;  //  if the list hasn't been found
+	}
+	else{
+		cout << p->info << " has taken " << comparisons << " comparison(s)" << endl;  //  show the month and how many comparison it has taken
+	}
+
+}
+#endif
