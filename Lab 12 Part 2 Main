@@ -1,0 +1,95 @@
+/*
+CPSC131
+Created by:  Brian Bui
+Created on:  30 November 2016
+Last edited:  30 November 2016
+
+This program will create a hash table of size 5, insert the name of the months, display it and then see how many comparisons are needed to find a certain month.
+
+
+*/
+
+
+#include<iostream>
+#include<string>
+#include"QUEUE.h"  //  I MADE THIS
+#include<ctime>
+
+using namespace std;
+
+QUEUE_LIST zero, one, two, three, four;  //  create 5 different objects for the hashing
+
+void import(string);
+void find(string);
+
+int main(){
+	string months[12] = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };  // months
+	time_t p;  //  time
+
+
+	for (int i = 0; i < 12; i++){  //  import each one
+		import(months[i]);
+	}
+
+	cout << "0:  ";
+	zero.displayQueue();  //  display all five lists
+	cout << "1:  ";
+	one.displayQueue();
+	cout << "2:  ";
+	two.displayQueue();
+	cout << "3:  ";
+	three.displayQueue();
+	cout << "4:  ";
+	four.displayQueue();
+
+	find("APR");  //  find a month and see how many comparisons it takes
+	find("DEC");
+	find("NON");
+	find("MAR");
+
+	time(&p);  //  find time
+	cout << "Brian Bui CPSC 131 \t" << ctime(&p);  //  display
+	return 0;
+}
+
+void import(string name){
+	int hash, ascii;
+	ascii = int(name[0]) + int(name[1]);  //  add the first two letter's ascii
+	hash = ascii % 5;  //  hash
+	if (hash == 0){
+		zero.pushQueue(name);  //  push into zero
+	}
+	if (hash == 1){
+		one.pushQueue(name);  //  push into one
+	}
+	if (hash == 2){
+		two.pushQueue(name);  //  push into two
+	}
+	if (hash == 3){
+		three.pushQueue(name);  //  push into three
+	}
+	if (hash == 4){
+		four.pushQueue(name);  //  push into four
+	}
+}
+
+void find(string name){
+	int hash, ascii;
+	ascii = int(name[0]) + int(name[1]);  //  add the first two letter's ascii
+	hash = ascii % 5;  //  hash
+	if (hash == 0){
+		zero.retrieve(name);  //  look into zero
+	}
+	if (hash == 1){
+		one.retrieve(name);  //  look into one
+	}
+	if (hash == 2){
+		two.retrieve(name);  //  look into two
+	}
+	if (hash == 3){
+		three.retrieve(name);  //  look into three
+	}
+	if (hash == 4){
+		four.retrieve(name);  //  look into four
+	}
+}
